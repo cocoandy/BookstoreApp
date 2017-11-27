@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5faea6</color>
+    <color name="colorPrimaryDark">#5faea6</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="red">#ff0000</color>
+    <color name="white">#ffffff</color>
+    <color name="tab_bg">#c9c9c9</color>
+    <color name="fresh_bg">#848484</color>
+    <color name="dividing_line">#a6a2a2</color>
+    <color name="view_bg">#aa484949</color>
+</resources>

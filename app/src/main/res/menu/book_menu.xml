@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.gxwz.wzxy.myapplication.MainActivity">
+
+    <item
+        android:id="@+id/menu_book_add"
+        android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="1"
+        android:title="添加图书" />
+    <item
+        android:id="@+id/menu_book_addtype"
+        android:orderInCategory="3"
+        android:title="添加类型"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_book_list"
+        android:orderInCategory="3"
+        android:title="图书列表"
+        app:showAsAction="never" />
+</menu>

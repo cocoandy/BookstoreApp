@@ -1,0 +1,47 @@
+package com.gxwz.wzxy.bookstoreapp.modle;
+
+import cn.bmob.v3.BmobUser;
+
+/**
+ * Created by crucy on 2017/10/29.
+ */
+
+public class UserInfo extends BmobUser {
+
+    Integer gender;//性别
+    String nickname;//昵称
+    String cover;//头像
+    String birthday;//生日
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+}

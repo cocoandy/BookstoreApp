@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/login_username"
+            style="@style/editText"
+            android:drawableLeft="@mipmap/icon_username"
+            android:hint="username" />
+
+        <EditText
+            android:id="@+id/login_password"
+            style="@style/editText"
+            android:drawableLeft="@mipmap/icon_password"
+            android:hint="password" />
+
+        <Button
+            android:id="@+id/login_submit"
+            style="@style/button"
+            android:text="登                       录" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/login_regist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:text="我要注册"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/login_remember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:text="忘记密码？"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/view_toolbar" />
+</FrameLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gxwz.wzxy.bookstoreapp.ui.activity.RegistActivity">
+    <include layout="@layout/view_toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="551dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <EditText
+            android:id="@+id/rejest_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_text_bg_8"
+            android:drawableLeft="@mipmap/icon_username"
+            android:drawablePadding="10dp"
+            android:hint="昵称" />
+
+        <EditText
+            android:id="@+id/rejest_number"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_text_bg_8"
+            android:drawableLeft="@mipmap/icon_phone"
+            android:drawablePadding="10dp"
+            android:hint="电话" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/rejest_code"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_text_bg_8"
+                android:hint="验证码"
+                android:paddingLeft="16dp" />
+
+            <Button
+                android:id="@+id/rejest_send_code"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_btn_bg_8"
+                android:gravity="center"
+                android:text="验证码" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/rejest_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rejest_gender_man"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:checked="true"
+                android:text="男" />
+
+            <RadioButton
+                android:id="@+id/rejest_gender_women"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/rejest_password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_text_bg_8"
+            android:drawableLeft="@mipmap/icon_password"
+            android:drawablePadding="10dp"
+            android:hint="密码" />
+
+        <EditText
+            android:id="@+id/rejest_repassword"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_text_bg_8"
+            android:drawableLeft="@mipmap/icon_repassword"
+            android:drawablePadding="10dp"
+            android:hint="确认密码" />
+
+
+        <Button
+            android:id="@+id/rejest_submit"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_btn_bg_8"
+            android:text="注                 册"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

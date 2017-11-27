@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimaryDark">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:drawableLeft="@mipmap/icon_search"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="更多尽在搜索中"
+                android:background="@drawable/shape_text_bg_9" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    //recycle
+    <include layout="@layout/view_recyclerview" />
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/item_book_cover"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_home" />
+
+    <TextView
+        android:id="@+id/item_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_book_cover"
+        android:text="毁灭世界" />
+
+    <TextView
+        android:id="@+id/item_book_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_book_name"
+        android:layout_marginTop="3dp"
+        android:textSize="10sp"
+        android:layout_toRightOf="@+id/item_book_cover"
+        android:text="价格：￥20.00"
+        android:textColor="@color/red" />
+
+    <TextView
+        android:id="@+id/item_book_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_book_price"
+        android:layout_marginTop="3dp"
+        android:textSize="10sp"
+        android:layout_toRightOf="@+id/item_book_cover"
+        android:text="10000条评论" />
+    <TextView
+        android:id="@+id/item_book_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="3dp"
+        android:textSize="10sp"
+        android:text="" />
+</RelativeLayout>

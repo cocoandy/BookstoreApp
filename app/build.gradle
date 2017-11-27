@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.gxwz.wzxy.bookstoreapp"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //轮播图
+    //底部导航：http://blog.csdn.net/huangxiaoguo1/article/details/53842536
+    //Hongyang 封装recyclerview
+    //稳定版
+    //没有使用特殊Header，可以不加这行
+
+    //bmob-sms ：Bmob单独为短信服务提供的包
+    //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+    //各种自定义弹出框
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.youth.banner:banner:1.4.8'
+    compile 'com.github.armcha:LuseenBottomNavigation:1.8.2'
+    compile 'com.zhy:base-rvadapter:3.0.3'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'cn.bmob.android:bmob-sdk:3.5.5'
+    compile 'cn.bmob.android:bmob-sms:1.0.1'
+    compile 'cn.bmob.android:http-legacy:1.0'
+    compile 'com.dou361.dialogui:jjdxm-dialogui:1.0.1'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'com.bigkoo:pickerview:2.1.0'
+
+    compile files('libs/AndroidPicker-1.5.5.jar')
+//    compile 'cn.qqtheme.framework:WheelPicker:latest.release'
+//    compile 'cn.qqtheme.framework:FilePicker:latest.release'
+//    compile 'cn.qqtheme.framework:ColorPicker:latest.release'
+    compile 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.5'
+    compile 'com.github.gzu-liyujiang.AndroidPicker:FilePicker:1.5.5'
+    compile 'com.github.gzu-liyujiang.AndroidPicker:ColorPicker:1.5.5'
+    compile 'com.alibaba:fastjson:1.1.55.android'
+//    compile 'liji.library.dev:citypickerview:2.1.2'
+}

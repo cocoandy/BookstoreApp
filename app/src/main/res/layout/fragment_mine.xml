@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/userinfo_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+
+                android:layout_margin="10dp"
+                android:src="@mipmap/icon_edit" />
+
+            <ImageView
+                android:id="@+id/user_cover"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/icon_user_cover" />
+
+            <ImageView
+                android:id="@+id/user_genter"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignBottom="@+id/user_cover"
+                android:layout_alignRight="@+id/user_cover"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/icon_man" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_cover"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="User"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_bg_0"
+            android:layout_weight="1"
+            android:text="待发货(0)"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_bg_0"
+            android:gravity="center"
+            android:text="待收货(0)" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_bg_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="待评价(0)"
+            android:gravity="center" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_bg_0"
+            android:layout_weight="1"
+            android:text="售后(0)"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

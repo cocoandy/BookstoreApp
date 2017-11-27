@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">点点书城</string>
+    <string name="main_home">首页</string>
+    <string name="main_shoppcar">购物车</string>
+    <string name="main_order">订单</string>
+    <string name="main_mine">我的</string>
+</resources>
