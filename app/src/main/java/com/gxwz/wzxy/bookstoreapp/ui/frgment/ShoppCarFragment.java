@@ -96,6 +96,7 @@ public class ShoppCarFragment extends BaseFragment implements ShopCardAdapter.Up
             public void done(List<ShopCarInfo> list, BmobException e) {
                 Log.e(TAG, list.toString());
                 if (!Utils.isEmpty(list)) {
+
                     tvMoney.setText("总价：￥"+new BigDecimal(0).setScale(2,BigDecimal.ROUND_HALF_UP));
                     mDatas.clear();
                     mDatas.addAll(list);
