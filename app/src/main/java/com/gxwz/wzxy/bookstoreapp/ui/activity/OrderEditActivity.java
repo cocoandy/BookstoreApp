@@ -116,15 +116,16 @@ public class OrderEditActivity extends BaseActivity {
 
     public void saveOrder() {
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setShopCarInfos(mDatas);
-        orderInfo.setUserName(BmobUser.getCurrentUser().getUsername());
-        orderInfo.setAddressInfo(addressInfo);
-        orderInfo.setTotal("1");
+//        orderInfo.setShopCarInfos(mDatas);
+//        orderInfo.setUserName(BmobUser.getCurrentUser().getUsername());
+//        orderInfo.setAddressInfo(addressInfo);
+//        orderInfo.setTotal("1");
         orderInfo.setFlag(0);
         orderInfo.save(new SaveListener<String>() {
             @Override
-            public void done(String s, BmobException e) {
-                DialogUIUtils.showToastShort(s + "--" + e.getMessage());
+            public void done(final String objectId, BmobException e) {
+                DialogUIUtils.showToastShort(objectId + "--" + e.getMessage());
+                Log.e(TAG,"objectId:"+objectId+"-----"+"BmobException:"+ e.getMessage());
                 BmobBatch batch = new BmobBatch();
                 List<BmobObject> objects = new ArrayList<BmobObject>();
                 for (ShopCarInfo info : mDatas) {
@@ -135,7 +136,9 @@ public class OrderEditActivity extends BaseActivity {
 
                     @Override
                     public void done(List<BatchResult> results, BmobException ex) {
-                       startActivity(new Intent(OrderEditActivity.this, MainActivity.class));
+                        Intent intent = new Intent(OrderEditActivity.this, PayActivity.class);
+                        intent.putExtra("objectId",objectId);
+                       startActivity(intent);
                     }
                 });
             }
