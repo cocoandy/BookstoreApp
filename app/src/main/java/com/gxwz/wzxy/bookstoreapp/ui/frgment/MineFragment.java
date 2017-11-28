@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.BookInfoAdapter;
@@ -17,8 +18,12 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.MineMenuInfo;
+import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookManegeActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 
@@ -27,6 +32,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by crucy on 2017/10/28.
@@ -35,6 +45,15 @@ import butterknife.ButterKnife;
 public class MineFragment extends BaseFragment {
     @BindView(R.id.recycle)
     RecyclerView recycle;
+
+    @BindView(R.id.ming_order_nopay)
+    TextView mTvNoPay;
+    @BindView(R.id.ming_order_pay)
+    TextView mTvPay;
+    @BindView(R.id.ming_order_comm)
+    TextView mTvComm;
+    @BindView(R.id.ming_order_back)
+    TextView mTvBack;
 
     MineMenuAdapter adapter;
     GridLayoutManager layoutManager;
@@ -52,8 +71,51 @@ public class MineFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecycle();
+        showNumber(0);
+        showNumber(1);
+        showNumber(2);
+        showNumber(3);
     }
 
+    public void showNumber(final int flag){
+        BmobQuery<OrderInfo> query = new BmobQuery<>();
+        query.addWhereEqualTo("userName", BmobUser.getCurrentUser()==null?"":BmobUser.getCurrentUser().getUsername());
+        query.addWhereEqualTo("flag", flag);
+        query.findObjects(new FindListener<OrderInfo>() {
+            @Override
+            public void done(List<OrderInfo> list, BmobException e) {
+                switch (flag){
+                    case 0:
+                        mTvNoPay.setText("待付款("+list.size()+")");
+                        break;
+                    case 1:
+                        mTvPay.setText("待收货("+list.size()+")");
+                        break;
+                    case 2:
+                        mTvComm.setText("待评价("+list.size()+")");
+                        break;
+                    case 3:
+                        mTvBack.setText("售后("+list.size()+")");
+                        break;
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.ming_order_nopay,R.id.ming_order_pay,R.id.ming_order_comm,R.id.ming_order_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.ming_order_nopay:
+                startActivity(new Intent(context, OrderActivity.class));
+                break;
+            case R.id.ming_order_pay:
+                break;
+            case R.id.ming_order_comm:
+                break;
+            case R.id.ming_order_back:
+                break;
+        }
+    }
 
     /**
      * 初始化数控数据列表

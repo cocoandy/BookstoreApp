@@ -21,7 +21,7 @@ public class BookInfo extends BmobObject {
     String reume;//作者简介
     String introduction;//作者简介
     String directory;//m目录
-
+    public BookInfo(){}
     public BookInfo(String bookId, String cover, String name, String author, String press, Double score, String price, BookTypeInfo type, Integer comment, Integer status, String reume, String introduction, String directory) {
         this.bookId = bookId;
         this.cover = cover;

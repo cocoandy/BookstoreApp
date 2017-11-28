@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 
@@ -43,7 +44,7 @@ public class PayActivity extends AppCompatActivity {
         query.getObject(objectId, new QueryListener<OrderInfo>() {
             @Override
             public void done(OrderInfo orderInfo, BmobException e) {
-                mTvTotal.setText(orderInfo.getFlag());
+                mTvTotal.setText(orderInfo.getTotal());
             }
         });
 
@@ -53,15 +54,16 @@ public class PayActivity extends AppCompatActivity {
     public void onClick(View view){
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setObjectId(objectId);
-        orderInfo.setFlag(2);
+        orderInfo.setFlag(1);
         orderInfo.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e==null){
+                    DialogUIUtils.showToastShort("支付成功");
                     startActivity(new Intent(PayActivity.this, MainActivity.class));
                     finish();
                 }else {
-
+                    DialogUIUtils.showToastShort("失败");
                 }
             }
         });

@@ -58,6 +58,7 @@
         android:layout_height="60dp">
 
         <TextView
+            android:id="@+id/ming_order_nopay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shape_bg_0"
@@ -66,7 +67,7 @@
             android:gravity="center" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/ming_order_pay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -75,6 +76,7 @@
             android:text="待收货(0)" />
 
         <TextView
+            android:id="@+id/ming_order_comm"
             android:layout_width="match_parent"
             android:background="@drawable/shape_bg_0"
             android:layout_height="match_parent"
@@ -82,6 +84,7 @@
             android:text="待评价(0)"
             android:gravity="center" />
         <TextView
+            android:id="@+id/ming_order_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shape_bg_0"
