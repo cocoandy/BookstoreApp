@@ -32,4 +32,5 @@ public class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+
 }

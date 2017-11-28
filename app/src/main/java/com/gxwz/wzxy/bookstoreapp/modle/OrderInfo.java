@@ -14,6 +14,24 @@ public class OrderInfo extends BmobObject{
     public List<ShopCarInfo> shopCarInfos;
     public AddressInfo addressInfo;
     public String total;
+    public String userName;
+    public Integer flag;
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public List<ShopCarInfo> getShopCarInfos() {
         return shopCarInfos;

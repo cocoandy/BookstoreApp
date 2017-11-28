@@ -7,19 +7,29 @@
     android:orientation="vertical"
     tools:context="com.gxwz.wzxy.bookstoreapp.ui.activity.OrderEditActivity">
 
-    <TextView
-        android:id="@+id/order_edit_address"
+    <LinearLayout
+        android:id="@+id/ll_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="3"
-        android:padding="16dp"/>
+        android:background="@mipmap/ic_address">
+
+        <TextView
+            android:id="@+id/order_edit_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:hint="请填写地址"
+            android:minLines="4"
+            android:padding="20dp" />
+    </LinearLayout>
+
 
     <include
         layout="@layout/view_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/order_edit_address"
-        android:layout_above="@+id/ll_item_buy" />
+        android:layout_above="@+id/ll_item_buy"
+        android:layout_below="@+id/ll_address" />
 
     <LinearLayout
         android:id="@+id/ll_item_buy"
@@ -36,9 +46,9 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
-            android:textSize="16sp"
+            android:text="总价：￥0.00"
             android:textColor="@color/red"
-            android:text="总价：￥0.00" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_total_buy"
@@ -46,8 +56,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/red"
-            android:textSize="14sp"
             android:gravity="center"
-            android:text="支付" />
+            android:text="支付"
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>

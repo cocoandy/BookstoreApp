@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50sp"
+        android:text="13.34"
+        android:textSize="80sp"
+        android:textStyle="bold" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/shape_text_bg_8">
+
+        <LinearLayout
+            android:id="@+id/ll_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/weixin_pay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16sp"
+                android:gravity="center"
+                android:text="微信支付" />
+        </LinearLayout>
+
+        <View style="@style/line"
+            android:layout_below="@+id/ll_weixin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/ll_weixin"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ali_pay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16sp"
+                android:gravity="center"
+                android:text="支付宝支付" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:layout_width="45dp"
+            android:layout_height="110dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:button="@null"
+                android:drawableRight="@android:drawable/btn_radio" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:button="@null"
+                android:drawableRight="@android:drawable/btn_radio" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_submit"
+        style="@style/button"
+        android:text="登                       录" />
+
+</LinearLayout>

@@ -203,13 +203,16 @@ public class ShoppCarFragment extends BaseFragment implements ShopCardAdapter.Up
     @OnClick(R.id.tv_total_buy)
     public void onClick(View view){
         ArrayList<ShopCarInfo> books = new ArrayList();
+        double money = 0;
         for (ShopCarInfo info:mDatas){
             if (info.isSelect){
                 books.add(info);
+                money = money + info.getNumber()*Double.parseDouble(info.getBookInfo().getPrice());
             }
         }
         Intent intent = new Intent(getActivity(), OrderEditActivity.class);
         intent.putExtra("ShopCarInfo",books);
+        intent.putExtra("total",String.valueOf(money));
         startActivity(intent);
 
     }

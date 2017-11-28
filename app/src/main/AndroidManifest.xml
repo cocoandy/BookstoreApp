@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +39,8 @@
         <activity android:name=".ui.activity.RegistActivity" />
         <activity android:name=".ui.activity.BookManegeActivity" />
         <activity android:name=".ui.activity.OrderEditActivity" />
-        <activity android:name=".ui.activity.AddressEditActivity"></activity>
+        <activity android:name=".ui.activity.AddressEditActivity" />
+        <activity android:name=".ui.activity.PayActivity"></activity>
     </application>
 
 </manifest>

@@ -17,13 +17,39 @@
     <EditText
         android:id="@+id/name"
         style="@style/editText"
-        android:text="姓名" />
+        android:hint="姓名" />
 
-    <TextView
-        android:id="@+id/address"
-        style="@style/editText"
-        android:gravity="center_vertical"
-        android:text="省/市/区" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Spinner
+            android:id="@+id/spinner_provice"
+            style="@style/spring"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_text_bg_8"
+            android:overlapAnchor="false"
+            android:spinnerMode="dropdown" />
+        <Spinner
+            android:id="@+id/spinner_city"
+            style="@style/spring"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_text_bg_8"
+            android:overlapAnchor="false"
+            android:spinnerMode="dropdown" />
+
+        <Spinner
+            android:id="@+id/spinner_area"
+            style="@style/spring"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:background="@drawable/shape_text_bg_8"
+            android:overlapAnchor="false"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/detil_address"
@@ -31,5 +57,10 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:minLines="6"
-        android:text="详细地址" />
+        android:hint="详细地址" />
+
+    <Button
+        android:id="@+id/submit"
+        style="@style/button"
+        android:text="确                       定" />
 </LinearLayout>

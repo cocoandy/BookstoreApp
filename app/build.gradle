@@ -48,17 +48,7 @@ dependencies {
     compile 'cn.bmob.android:bmob-sms:1.0.1'
     compile 'cn.bmob.android:http-legacy:1.0'
     compile 'com.dou361.dialogui:jjdxm-dialogui:1.0.1'
+    compile 'com.bigkoo:pickerview:2.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.bigkoo:pickerview:2.1.0'
-
-    compile files('libs/AndroidPicker-1.5.5.jar')
-//    compile 'cn.qqtheme.framework:WheelPicker:latest.release'
-//    compile 'cn.qqtheme.framework:FilePicker:latest.release'
-//    compile 'cn.qqtheme.framework:ColorPicker:latest.release'
-    compile 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.5'
-    compile 'com.github.gzu-liyujiang.AndroidPicker:FilePicker:1.5.5'
-    compile 'com.github.gzu-liyujiang.AndroidPicker:ColorPicker:1.5.5'
-    compile 'com.alibaba:fastjson:1.1.55.android'
-//    compile 'liji.library.dev:citypickerview:2.1.2'
 }
