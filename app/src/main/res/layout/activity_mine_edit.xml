@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.gxwz.wzxy.bookstoreapp.ui.activity.MineEditActivity">
+
+    <include layout="@layout/view_toolbar" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/user_cover"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/icon_user_cover" />
+</LinearLayout>
+
+
+
+    <EditText
+        android:id="@+id/mine_edit_nickname"
+        style="@style/editText"
+        android:drawableLeft="@mipmap/icon_username"
+        android:hint="昵称" />
+
+    <RadioGroup
+        android:id="@+id/mine_edit_gender"
+        style="@style/editText"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/mine_edit_gender_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:checked="true"
+            android:text="男" />
+
+        <RadioButton
+            android:id="@+id/mine_edit_gender_women"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/mine_edit_submit"
+        style="@style/button"
+        android:text="确                 定" />
+</LinearLayout>

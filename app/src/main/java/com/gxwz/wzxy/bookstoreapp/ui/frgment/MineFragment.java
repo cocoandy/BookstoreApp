@@ -22,6 +22,9 @@ import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookManegeActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.MineEditActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
@@ -37,6 +40,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import butterknife.OnClick;
 
 /**
  * Created by crucy on 2017/10/28.
@@ -77,6 +81,14 @@ public class MineFragment extends BaseFragment {
         showNumber(3);
     }
 
+    @OnClick({R.id.userinfo_edit})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.userinfo_edit:
+                startActivity(new Intent(context, MineEditActivity.class));
+                break;
+        }
+    }
     public void showNumber(final int flag){
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser()==null?"":BmobUser.getCurrentUser().getUsername());
@@ -121,21 +133,21 @@ public class MineFragment extends BaseFragment {
      * 初始化数控数据列表
      */
     private void initRecycle() {
-        menuInfos.add(new MineMenuInfo("我的评论",R.mipmap.icon_phone,1));
-        menuInfos.add(new MineMenuInfo("图书管理",R.mipmap.icon_phone,2));
-        menuInfos.add(new MineMenuInfo("用户管理",R.mipmap.icon_phone,3));
-        menuInfos.add(new MineMenuInfo("123123",R.mipmap.icon_phone,1));
-        menuInfos.add(new MineMenuInfo("123123",R.mipmap.icon_phone,1));
-        menuInfos.add(new MineMenuInfo("123123",R.mipmap.icon_phone,1));
-        menuInfos.add(new MineMenuInfo("123123",R.mipmap.icon_phone,1));
+        menuInfos.add(new MineMenuInfo("我的评论", R.mipmap.icon_phone, 1));
+        menuInfos.add(new MineMenuInfo("图书管理", R.mipmap.icon_phone, 2));
+        menuInfos.add(new MineMenuInfo("用户管理", R.mipmap.icon_phone, 3));
+        menuInfos.add(new MineMenuInfo("123123", R.mipmap.icon_phone, 1));
+        menuInfos.add(new MineMenuInfo("123123", R.mipmap.icon_phone, 1));
+        menuInfos.add(new MineMenuInfo("123123", R.mipmap.icon_phone, 1));
+        menuInfos.add(new MineMenuInfo("123123", R.mipmap.icon_phone, 1));
         adapter = new MineMenuAdapter(context, menuInfos);
         adapter.setItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleAdapter.ViewHolder holder, int position) {
 
-                switch (menuInfos.get(position).getPage()){
+                switch (menuInfos.get(position).getPage()) {
                     case 1:
-                        startActivity(new Intent(context,BookManegeActivity.class));
+                        startActivity(new Intent(context, BookManegeActivity.class));
                         break;
                     case 2:
                         break;
@@ -169,7 +181,7 @@ public class MineFragment extends BaseFragment {
         });
 
         //创建默认的线性LayoutManager
-        layoutManager = new GridLayoutManager(context,3);
+        layoutManager = new GridLayoutManager(context, 3);
         recycle.setLayoutManager(layoutManager);
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         recycle.setHasFixedSize(true);
