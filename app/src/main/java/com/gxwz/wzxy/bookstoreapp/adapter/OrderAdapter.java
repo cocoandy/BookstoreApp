@@ -28,6 +28,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         super(context, mDatas);
     }
 
+
     @Override
     public BookViewHolder onCreateViewHolders(ViewGroup parent, int viewType) {
         BookViewHolder holder = new BookViewHolder(LayoutInflater.from(context).inflate(R.layout.item_order, parent, false));
