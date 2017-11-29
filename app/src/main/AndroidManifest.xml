@@ -40,7 +40,10 @@
         <activity android:name=".ui.activity.BookManegeActivity" />
         <activity android:name=".ui.activity.OrderEditActivity" />
         <activity android:name=".ui.activity.AddressEditActivity" />
-        <activity android:name=".ui.activity.PayActivity"></activity>
+        <activity android:name=".ui.activity.PayActivity" />
+        <activity android:name=".ui.activity.MineEditActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".ui.activity.BooksMainActivity"></activity>
     </application>
 
 </manifest>

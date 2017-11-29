@@ -15,7 +15,10 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.BooksMainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
 import com.gxwz.wzxy.bookstoreapp.utils.GlideImageLoader;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 import com.youth.banner.Banner;
@@ -30,6 +33,7 @@ import java.util.concurrent.BlockingQueue;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -46,12 +50,6 @@ public class HomeFragment extends BaseFragment {
     List<BookInfo> bookInfos = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     BookInfoAdapter adapter;
-
-
-    HomeFragment homeFragment;
-    ShoppCarFragment shoppCarFragment;
-    OrderFragment orderFragment;
-    MineFragment mineFragment;
 
     String[] url = new String[]{"http://img05.tooopen.com/images/20150911/tooopen_sl_142281455988.jpg",
             "http://img05.tooopen.com/images/20150911/tooopen_sl_142281455988.jpg",
@@ -70,6 +68,10 @@ public class HomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         iniData();
 
+    }
+    @OnClick({R.id.screach_books})
+    public void  onClick(View view){
+        startActivity(new Intent(context, BooksMainActivity.class));
     }
 
     private void iniData() {
