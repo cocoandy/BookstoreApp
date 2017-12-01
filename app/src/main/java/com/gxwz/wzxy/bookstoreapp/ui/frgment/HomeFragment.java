@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.BookInfoAdapter;
@@ -69,8 +71,23 @@ public class HomeFragment extends BaseFragment {
         iniData();
 
     }
+
     @OnClick({R.id.screach_books})
-    public void  onClick(View view){
+    public void onClick(View view) {
+//        new BlurPopupWindow.Builder(v.getContext())
+//                .setContentView(R.layout.layout_dialog_like)
+//                .bindClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(v.getContext(), "Click Button", Toast.LENGTH_SHORT).show();
+//                    }
+//                }, R.id.dialog_like_bt)
+//                .setGravity(Gravity.CENTER)
+//                .setScaleRatio(0.2f)
+//                .setBlurRadius(10)
+//                .setTintColor(0x30000000)
+//                .build()
+//                .show();
         startActivity(new Intent(context, BooksMainActivity.class));
     }
 
