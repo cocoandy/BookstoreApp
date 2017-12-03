@@ -11,7 +11,7 @@
         android:layout_height="30dp"
         android:gravity="center_vertical"
         android:layout_toLeftOf="@+id/item_order_stadus"
-        android:text="823478927394" />
+        android:text="" />
 
     <TextView
         android:id="@+id/item_order_stadus"
@@ -19,7 +19,7 @@
         android:layout_height="30dp"
         android:gravity="center_vertical"
         android:layout_alignParentRight="true"
-        android:text="823478927394" />
+        android:text="" />
     <View
         style="@style/line"
         android:layout_below="@+id/item_order_id" />
@@ -28,8 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center_vertical"
-        android:text="2013-12-23"
-        android:layout_below="@+id/item_order_id"
+        android:text=""
+        android:layout_alignBaseline="@+id/item_order_total"
+        android:layout_alignBottom="@+id/item_order_total"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -40,7 +41,7 @@
         android:gravity="center_vertical"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/item_order_stadus"
-        android:text="823478927394"
+        android:text=""
         android:textColor="@color/red" />
 
     <View
