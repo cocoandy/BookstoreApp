@@ -35,7 +35,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         BookViewHolder holder = new BookViewHolder(LayoutInflater.from(context).inflate(R.layout.item_order, parent, false));
         return holder;
     }
-
+ 
     @Override
     public void onBindViewHolders(BookViewHolder holder, int position) {
     }
