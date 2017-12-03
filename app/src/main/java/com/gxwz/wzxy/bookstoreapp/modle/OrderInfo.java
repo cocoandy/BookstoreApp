@@ -56,4 +56,9 @@ public class OrderInfo extends BmobObject{
     public void setTotal(String total) {
         this.total = total;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

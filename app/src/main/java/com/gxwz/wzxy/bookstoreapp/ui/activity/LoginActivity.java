@@ -47,7 +47,7 @@ public class LoginActivity extends BaseActivity {
                     public void done(UserInfo userInfo, BmobException e) {
                         if(e==null){
                             DialogUIUtils.showToastLong("登录成功:" +userInfo.toString());
-                            startActivity(new Intent(context, LoginActivity.class));
+                            startActivity(new Intent(context, MainActivity.class));
                             finish();
                         }else{
                             DialogUIUtils.showToastLong("登录失败:");

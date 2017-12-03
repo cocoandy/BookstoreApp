@@ -81,42 +81,37 @@ public class MineFragment extends BaseFragment {
         showNumber(3);
     }
 
-    @OnClick({R.id.userinfo_edit})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.userinfo_edit:
-                startActivity(new Intent(context, MineEditActivity.class));
-                break;
-        }
-    }
-    public void showNumber(final int flag){
+    public void showNumber(final int flag) {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
-        query.addWhereEqualTo("userName", BmobUser.getCurrentUser()==null?"":BmobUser.getCurrentUser().getUsername());
+        query.addWhereEqualTo("userName", BmobUser.getCurrentUser() == null ? "" : BmobUser.getCurrentUser().getUsername());
         query.addWhereEqualTo("flag", flag);
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
-                switch (flag){
+                switch (flag) {
                     case 0:
-                        mTvNoPay.setText("待付款("+list.size()+")");
+                        mTvNoPay.setText("待付款(" + list.size() + ")");
                         break;
                     case 1:
-                        mTvPay.setText("待收货("+list.size()+")");
+                        mTvPay.setText("待收货(" + list.size() + ")");
                         break;
                     case 2:
-                        mTvComm.setText("待评价("+list.size()+")");
+                        mTvComm.setText("待评价(" + list.size() + ")");
                         break;
                     case 3:
-                        mTvBack.setText("售后("+list.size()+")");
+                        mTvBack.setText("售后(" + list.size() + ")");
                         break;
                 }
             }
         });
     }
 
-    @OnClick({R.id.ming_order_nopay,R.id.ming_order_pay,R.id.ming_order_comm,R.id.ming_order_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.userinfo_edit})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.userinfo_edit:
+                startActivity(new Intent(context, MineEditActivity.class));
+                break;
             case R.id.ming_order_nopay:
                 startActivity(new Intent(context, OrderActivity.class));
                 break;

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
-import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
+import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -15,23 +15,38 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class OrderActivity extends BaseActivity {
     @BindView(R.id.recycle)
     RecyclerView recycle;
     OrderAdapter mAdapter;
-    List<BookInfo> bookInfos = new ArrayList<>();
+    List<OrderInfo> bookInfos = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
-        bookInfos.add(new BookInfo());
-        bookInfos.add(new BookInfo());
-        bookInfos.add(new BookInfo());
-        bookInfos.add(new BookInfo());
         initRecycle();
+        loadingOrder();
+    }
+
+    private void loadingOrder() {
+        BmobQuery<OrderInfo> query = new BmobQuery<>();
+        query.findObjects(new FindListener<OrderInfo>() {
+            @Override
+            public void done(List<OrderInfo> list, BmobException e) {
+                if(list != null) {
+                    bookInfos.clear();
+                    bookInfos.addAll(list);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     /**
