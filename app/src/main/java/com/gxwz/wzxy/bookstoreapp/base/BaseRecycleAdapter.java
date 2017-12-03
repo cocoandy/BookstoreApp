@@ -114,6 +114,7 @@ public abstract class BaseRecycleAdapter<E extends RecyclerView.ViewHolder> exte
         boolean onFootLongClick(ViewHolder holder, int position);
     }
 
+
     /**
      * 添加数据
      * @param datas
