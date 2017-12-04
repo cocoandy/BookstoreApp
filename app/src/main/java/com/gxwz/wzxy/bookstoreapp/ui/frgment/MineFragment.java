@@ -21,6 +21,7 @@ import com.gxwz.wzxy.bookstoreapp.modle.MineMenuInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookManegeActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MineEditActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
@@ -88,6 +89,7 @@ public class MineFragment extends BaseFragment {
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
+
                 switch (flag) {
                     case 0:
                         mTvNoPay.setText("待付款(" + list.size() + ")");
@@ -102,26 +104,41 @@ public class MineFragment extends BaseFragment {
                         mTvBack.setText("售后(" + list.size() + ")");
                         break;
                 }
+
             }
         });
     }
 
     @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.userinfo_edit})
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.userinfo_edit:
-                startActivity(new Intent(context, MineEditActivity.class));
-                break;
+                if (isLogin()){
+                    startActivity(new Intent(context, MineEditActivity.class));
+                }else {
+                    startActivity(new Intent(context, LoginActivity.class));
+                }
+                return;
             case R.id.ming_order_nopay:
-                startActivity(new Intent(context, OrderActivity.class));
+                intent.setClass(context, OrderActivity.class);
+                intent.putExtra("flag",0);
                 break;
             case R.id.ming_order_pay:
+                intent.setClass(context, OrderActivity.class);
+                intent.putExtra("flag",1);
                 break;
             case R.id.ming_order_comm:
+                intent.setClass(context, OrderActivity.class);
+                intent.putExtra("flag",2);
                 break;
             case R.id.ming_order_back:
+                intent.setClass(context, OrderActivity.class);
+                intent.putExtra("flag",3);
                 break;
         }
+
+        startActivity(intent);
     }
 
     /**

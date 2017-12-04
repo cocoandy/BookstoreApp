@@ -69,6 +69,7 @@ public class OrderEditActivity extends BaseActivity {
         DialogUIUtils.init(this);
         initRecycle();
         loadingAddr();
+        tvMoney.setText(total);
 
     }
 
@@ -142,9 +143,18 @@ public class OrderEditActivity extends BaseActivity {
 
                         @Override
                         public void done(List<BatchResult> results, BmobException ex) {
+                            ArrayList<OrderInfo> ids = new ArrayList<OrderInfo>();
+                            if (results!=null){
+                                for (BatchResult result: results){
+                                    Log.e("TAG_",result.getObjectId());
+                                    OrderInfo orderInfo = new OrderInfo();
+                                    orderInfo.setObjectId(result.getObjectId());
+                                    ids.add(orderInfo);
+                                }
+                            }
                             Intent intent = new Intent(OrderEditActivity.this, PayActivity.class);
-                            intent.putExtra("total", tvMoney.getText());
-                            intent.putExtra("orderInfos", orderInfos);
+                            intent.putExtra("total", total);
+                            intent.putExtra("orderInfos", ids);
                             startActivity(intent);
                         }
                     });

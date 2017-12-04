@@ -18,6 +18,7 @@ import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.CommentEditActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -47,7 +48,11 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
     @Override
     public void onBindViewHolders(BookViewHolder holder, int position) {
         final OrderInfo orderInfo = (OrderInfo) mDatas.get(position);
-
+        if (position%2==0){
+            holder.itemView.setBackgroundResource(R.color.whitesmoke);
+        }else {
+            holder.itemView.setBackgroundResource(R.color.white);
+        }
         BookInfo info = orderInfo.getBookInfo();
         holder.name.setText(info.getName());
         holder.price.setText("价格：￥" + info.getPrice());
@@ -55,9 +60,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         Glide.with(context).load(info.getCover()).error(R.mipmap.ic_launcher).into(holder.cover);
 
         holder.order_id.setText(orderInfo.getObjectId());
-        holder.order_stadus.setText(orderInfo.getFlag() + "");
         holder.order_time.setText(orderInfo.getCreatedAt());
-
 
         switch (orderInfo.getFlag()) {
             case 0:
@@ -77,7 +80,9 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         holder.contrl_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, PayActivity.class);
+                intent.putExtra("orderInfo", orderInfo);
+                context.startActivity(intent);
             }
         });
         holder.contrl_comm.setOnClickListener(new View.OnClickListener() {
@@ -91,19 +96,25 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         holder.contrl_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, CommentEditActivity.class);
+                intent.putExtra("orderInfo", orderInfo);
+                context.startActivity(intent);
             }
         });
         holder.contrl_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, CommentEditActivity.class);
+                intent.putExtra("orderInfo", orderInfo);
+                context.startActivity(intent);
             }
         });
         holder.contrl_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, CommentEditActivity.class);
+                intent.putExtra("orderInfo", orderInfo);
+                context.startActivity(intent);
             }
         });
 
@@ -111,16 +122,10 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
 
 
     public class BookViewHolder extends BaseRecycleAdapter.ViewHolder {
-        @BindView(R.id.recycle)
-        RecyclerView recycle;
         @BindView(R.id.item_order_id)
         TextView order_id;
-        @BindView(R.id.item_order_stadus)
-        TextView order_stadus;
         @BindView(R.id.item_order_time)
         TextView order_time;
-        @BindView(R.id.item_order_total)
-        TextView order_total;
 
         @BindView(R.id.item_book_name)
         public TextView name;

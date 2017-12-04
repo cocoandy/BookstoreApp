@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobObject;
  * Created by crucy on 2017/11/8.
  */
 
-public class OrderInfo extends BmobObject {
+public class  OrderInfo extends BmobObject {
 
     public AddressInfo addressInfo;
     public String userName;

@@ -21,6 +21,7 @@ import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderEditActivity;
+import com.gxwz.wzxy.bookstoreapp.utils.NumUtil;
 import com.gxwz.wzxy.bookstoreapp.utils.Utils;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -212,7 +213,7 @@ public class ShoppCarFragment extends BaseFragment implements ShopCardAdapter.Up
         }
         Intent intent = new Intent(getActivity(), OrderEditActivity.class);
         intent.putExtra("ShopCarInfo",books);
-        intent.putExtra("total",String.valueOf(money));
+        intent.putExtra("total",NumUtil.moneyFormatStr(money));
         startActivity(intent);
 
     }

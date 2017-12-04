@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
@@ -25,11 +26,13 @@ public class OrderActivity extends BaseActivity {
     OrderAdapter mAdapter;
     List<OrderInfo> bookInfos = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
+    int flag = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+        flag = getIntent().getIntExtra("flag",-1);
         ButterKnife.bind(this);
         initRecycle();
         loadingOrder();
@@ -37,6 +40,9 @@ public class OrderActivity extends BaseActivity {
 
     private void loadingOrder() {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
+        query.include("bookInfo");
+        query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
+        if (flag>0) query.addWhereEqualTo("flag",flag);
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
