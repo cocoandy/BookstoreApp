@@ -113,32 +113,42 @@ public class OrderEditActivity extends BaseActivity {
                 break;
         }
     }
-    OrderInfo orderInfo;
-    public void saveOrder() {
-        orderInfo = new OrderInfo();
-        orderInfo.setShopCarInfos(mDatas);
-        orderInfo.setUserName(BmobUser.getCurrentUser().getUsername());
-        orderInfo.setAddressInfo(addressInfo);
-        orderInfo.setTotal(total);
-        orderInfo.setFlag(0);
-        orderInfo.save(new SaveListener<String>() {
-            @Override
-            public void done(final String objectId, BmobException e) {
-                BmobBatch batch = new BmobBatch();
-                List<BmobObject> objects = new ArrayList<BmobObject>();
-                for (ShopCarInfo info : mDatas) {
-                    objects.add(info);
-                }
-                batch.deleteBatch(objects);
-                batch.doBatch(new QueryListListener<BatchResult>() {
 
-                    @Override
-                    public void done(List<BatchResult> results, BmobException ex) {
-                        Intent intent = new Intent(OrderEditActivity.this, PayActivity.class);
-                        intent.putExtra("objectId",orderInfo.getObjectId());
-                       startActivity(intent);
+    ArrayList<BmobObject> orderInfos;
+    public void saveOrder() {
+        orderInfos = new ArrayList<>();
+        for (ShopCarInfo info : mDatas) {
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setUserName(BmobUser.getCurrentUser().getUsername());
+            orderInfo.setBookInfo(info.getBookInfo());
+            orderInfo.setNumber(info.getNumber());
+            orderInfo.setAddressInfo(addressInfo);
+            orderInfo.setFlag(0);
+            orderInfos.add(orderInfo);
+        }
+        BmobBatch batch = new BmobBatch();
+        batch.insertBatch(orderInfos);
+        batch.doBatch(new QueryListListener<BatchResult>() {
+            @Override
+            public void done(List<BatchResult> list, BmobException e) {
+                if (e==null){
+                    BmobBatch batch = new BmobBatch();
+                    List<BmobObject> objects = new ArrayList<BmobObject>();
+                    for (ShopCarInfo info : mDatas) {
+                        objects.add(info);
                     }
-                });
+                    batch.deleteBatch(objects);
+                    batch.doBatch(new QueryListListener<BatchResult>() {
+
+                        @Override
+                        public void done(List<BatchResult> results, BmobException ex) {
+                            Intent intent = new Intent(OrderEditActivity.this, PayActivity.class);
+                            intent.putExtra("total", tvMoney.getText());
+                            intent.putExtra("orderInfos", orderInfos);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
     }

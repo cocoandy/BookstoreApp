@@ -27,42 +27,36 @@ public class PayActivity extends AppCompatActivity {
     @BindView(R.id.pay_total)
     TextView mTvTotal;
     String objectId;
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
         ButterKnife.bind(this);
-        objectId = getIntent().getStringExtra("objectId");
-        BmobQuery<OrderInfo> query = new BmobQuery();
-        query.getObject(objectId, new QueryListener<OrderInfo>() {
-            @Override
-            public void done(OrderInfo orderInfo, BmobException e) {
-                mTvTotal.setText(orderInfo.getTotal());
-            }
-        });
-
+        mTvTotal.setText(getIntent().getStringExtra("total"));
+        mTvTotal.setText(getIntent().getStringExtra("total"));
     }
 
     @OnClick({R.id.submit})
-    public void onClick(View view){
+    public void onClick(View view) {
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setObjectId(objectId);
         orderInfo.setFlag(1);
         orderInfo.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if (e==null){
+                if (e == null) {
                     DialogUIUtils.showToastShort("支付成功");
                     startActivity(new Intent(PayActivity.this, MainActivity.class));
                     finish();
-                }else {
+                } else {
                     DialogUIUtils.showToastShort("失败");
                 }
             }

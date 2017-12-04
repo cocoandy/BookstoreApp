@@ -18,16 +18,16 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends BaseActivity {
-    @BindView(R.id.login_username)
-    EditText username;
+    @BindView(R.id.activity_login_username)
+    EditText mEtusername;
     @BindView(R.id.login_password)
     EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         init();
     }
 
@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.login_submit:
                 UserInfo userInfo = new UserInfo();
-                userInfo.setUsername(username.getText().toString().trim());
+                userInfo.setUsername(mEtusername.getText().toString().trim());
                 userInfo.setPassword(password.getText().toString().trim());
                 userInfo.login(new SaveListener<UserInfo>() {
                     @Override

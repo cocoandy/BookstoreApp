@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/login_username"
+            android:id="@+id/activity_login_username"
             style="@style/editText"
             android:drawableLeft="@mipmap/icon_username"
             android:hint="username" />

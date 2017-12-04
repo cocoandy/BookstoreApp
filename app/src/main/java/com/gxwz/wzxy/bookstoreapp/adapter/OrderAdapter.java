@@ -1,6 +1,8 @@
 package com.gxwz.wzxy.bookstoreapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.CommentEditActivity;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -43,12 +46,67 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
 
     @Override
     public void onBindViewHolders(BookViewHolder holder, int position) {
-        OrderInfo orderInfo = (OrderInfo) mDatas.get(position);
-        holder.freshList(orderInfo.getShopCarInfos());
+        final OrderInfo orderInfo = (OrderInfo) mDatas.get(position);
+
+        BookInfo info = orderInfo.getBookInfo();
+        holder.name.setText(info.getName());
+        holder.price.setText("价格：￥" + info.getPrice());
+        holder.comment.setText("数量" + orderInfo.getNumber());
+        Glide.with(context).load(info.getCover()).error(R.mipmap.ic_launcher).into(holder.cover);
+
         holder.order_id.setText(orderInfo.getObjectId());
-        holder.order_stadus.setText(orderInfo.getFlag()+"");
+        holder.order_stadus.setText(orderInfo.getFlag() + "");
         holder.order_time.setText(orderInfo.getCreatedAt());
-        holder.order_total.setText(orderInfo.getTotal());
+
+
+        switch (orderInfo.getFlag()) {
+            case 0:
+                holder.contrl_pay.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                holder.contrl_get.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                holder.contrl_comm.setVisibility(View.VISIBLE);
+                holder.contrl_back.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                holder.contrl_cancel.setVisibility(View.VISIBLE);
+                break;
+        }
+        holder.contrl_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.contrl_comm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentEditActivity.class);
+                intent.putExtra("orderInfo", orderInfo);
+                context.startActivity(intent);
+            }
+        });
+        holder.contrl_get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.contrl_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.contrl_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
 
@@ -63,37 +121,33 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         TextView order_time;
         @BindView(R.id.item_order_total)
         TextView order_total;
-        OrderBooksAdapter mAdapter;
-        List<ShopCarInfo> shopCarInfos = new ArrayList<>();
+
+        @BindView(R.id.item_book_name)
+        public TextView name;
+        @BindView(R.id.item_book_price)
+        public TextView price;
+        @BindView(R.id.item_book_comment)
+        public TextView comment;
+        @BindView(R.id.item_book_number)
+        public TextView number;
+        @BindView(R.id.item_book_cover)
+        public ImageView cover;
+
+        @BindView(R.id.contrl_pay)
+        TextView contrl_pay;
+        @BindView(R.id.contrl_get)
+        TextView contrl_get;
+        @BindView(R.id.contrl_back)
+        TextView contrl_back;
+        @BindView(R.id.contrl_comm)
+        TextView contrl_comm;
+        @BindView(R.id.contrl_cancel)
+        TextView contrl_cancel;
 
         public BookViewHolder(View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
-            initRecycle(shopCarInfos);
-        }
-
-        public void freshList(List<ShopCarInfo> infos) {
-            shopCarInfos.clear();
-            shopCarInfos.addAll(infos);
-            mAdapter.notifyDataSetChanged();
-        }
-
-        /**
-         * 初始化数控数据列表
-         */
-        private void initRecycle(List<ShopCarInfo> shopCarInfos) {
-            mAdapter = new OrderBooksAdapter(context, shopCarInfos);
-            //创建默认的线性LayoutManager
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-            recycle.setLayoutManager(linearLayoutManager);
-            //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-            recycle.setHasFixedSize(true);
-            //创建并设置Adapter
-            recycle.setAdapter(mAdapter);
-            recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
         }
     }
-
 
 }
