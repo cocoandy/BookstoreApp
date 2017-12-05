@@ -71,7 +71,14 @@ public class HomeFragment extends BaseFragment {
         iniData();
 
     }
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            loadingBooks();
+        } else {
+        }
+    }
     @OnClick({R.id.screach_books})
     public void onClick(View view) {
 //        new BlurPopupWindow.Builder(v.getContext())
@@ -94,8 +101,6 @@ public class HomeFragment extends BaseFragment {
     private void iniData() {
         initRecycle();
         carouselPicture(url);
-        loadingBooks();
-
     }
 
     private void loadingBooks() {

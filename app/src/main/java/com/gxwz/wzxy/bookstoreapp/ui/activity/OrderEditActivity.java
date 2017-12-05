@@ -115,8 +115,10 @@ public class OrderEditActivity extends BaseActivity {
         }
     }
 
+    ArrayList<BmobObject> bmobObjects;
     ArrayList<BmobObject> orderInfos;
     public void saveOrder() {
+        bmobObjects = new ArrayList<>();
         orderInfos = new ArrayList<>();
         for (ShopCarInfo info : mDatas) {
             OrderInfo orderInfo = new OrderInfo();
@@ -125,14 +127,14 @@ public class OrderEditActivity extends BaseActivity {
             orderInfo.setNumber(info.getNumber());
             orderInfo.setAddressInfo(addressInfo);
             orderInfo.setFlag(0);
-            orderInfos.add(orderInfo);
+            bmobObjects.add(orderInfo);
         }
         BmobBatch batch = new BmobBatch();
-        batch.insertBatch(orderInfos);
+        batch.insertBatch(bmobObjects);
         batch.doBatch(new QueryListListener<BatchResult>() {
             @Override
-            public void done(List<BatchResult> list, BmobException e) {
-                if (e==null){
+            public void done(final List<BatchResult> list, BmobException e) {
+                if (e == null) {
                     BmobBatch batch = new BmobBatch();
                     List<BmobObject> objects = new ArrayList<BmobObject>();
                     for (ShopCarInfo info : mDatas) {
@@ -143,19 +145,24 @@ public class OrderEditActivity extends BaseActivity {
 
                         @Override
                         public void done(List<BatchResult> results, BmobException ex) {
+
+                            for (int index = 0; index < results.size(); index++) {
+                                Log.e("TAG_FFF", "<<------>>" + results.get(index).getObjectId());
+                            }
                             ArrayList<OrderInfo> ids = new ArrayList<OrderInfo>();
-                            if (results!=null){
-                                for (BatchResult result: results){
-                                    Log.e("TAG_",result.getObjectId());
+                            if (ex == null) {
+                                for (BatchResult result : list) {
+                                    Log.e("TAG_FFF", "<<------>>" + result.getObjectId());
                                     OrderInfo orderInfo = new OrderInfo();
                                     orderInfo.setObjectId(result.getObjectId());
                                     ids.add(orderInfo);
                                 }
+
+                                Intent intent = new Intent(OrderEditActivity.this, PayActivity.class);
+                                intent.putExtra("total", total);
+                                intent.putExtra("orderInfos", ids);
+                                startActivity(intent);
                             }
-                            Intent intent = new Intent(OrderEditActivity.this, PayActivity.class);
-                            intent.putExtra("total", total);
-                            intent.putExtra("orderInfos", ids);
-                            startActivity(intent);
                         }
                     });
                 }

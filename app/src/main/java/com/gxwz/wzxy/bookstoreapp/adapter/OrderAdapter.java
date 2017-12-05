@@ -33,6 +33,11 @@ import butterknife.ButterKnife;
  */
 
 public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder> {
+    OrderClick onOrderClick;
+
+    public void setOnOrderClick(OrderClick onOrderClick) {
+        this.onOrderClick = onOrderClick;
+    }
 
     public OrderAdapter(Context context, List mDatas) {
         super(context, mDatas);
@@ -46,11 +51,11 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
     }
 
     @Override
-    public void onBindViewHolders(BookViewHolder holder, int position) {
+    public void onBindViewHolders(BookViewHolder holder, final int position) {
         final OrderInfo orderInfo = (OrderInfo) mDatas.get(position);
-        if (position%2==0){
+        if (position % 2 == 0) {
             holder.itemView.setBackgroundResource(R.color.whitesmoke);
-        }else {
+        } else {
             holder.itemView.setBackgroundResource(R.color.white);
         }
         BookInfo info = orderInfo.getBookInfo();
@@ -96,25 +101,19 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         holder.contrl_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CommentEditActivity.class);
-                intent.putExtra("orderInfo", orderInfo);
-                context.startActivity(intent);
+                onOrderClick.onClick(0,position);
             }
         });
         holder.contrl_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CommentEditActivity.class);
-                intent.putExtra("orderInfo", orderInfo);
-                context.startActivity(intent);
+                onOrderClick.onClick(1,position);
             }
         });
         holder.contrl_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CommentEditActivity.class);
-                intent.putExtra("orderInfo", orderInfo);
-                context.startActivity(intent);
+                onOrderClick.onClick(2,position);
             }
         });
 
@@ -155,4 +154,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         }
     }
 
+    public interface OrderClick {
+        public void onClick(int flag,int position);
+    }
 }

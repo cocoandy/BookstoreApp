@@ -37,7 +37,7 @@ public class ShopCardAdapter extends BaseRecycleAdapter<ShopCardAdapter.BookView
     }
 
     @Override
-    public void onBindViewHolders(BookViewHolder holder, final int position) {
+    public void onBindViewHolders(final BookViewHolder holder, final int position) {
         ShopCarInfo info = (ShopCarInfo) mDatas.get(position);
         BookInfo bookInfo = info.getBookInfo();
         holder.name.setText(bookInfo.getName());
@@ -49,6 +49,7 @@ public class ShopCardAdapter extends BaseRecycleAdapter<ShopCardAdapter.BookView
             public void onClick(View view) {
                 if (updataBookNumber != null)
                     updataBookNumber.add(position);
+                holder.submit.setVisibility(View.VISIBLE);
             }
         });
         holder.sub.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +57,7 @@ public class ShopCardAdapter extends BaseRecycleAdapter<ShopCardAdapter.BookView
             public void onClick(View view) {
                 if (updataBookNumber != null)
                     updataBookNumber.sub(position);
+                holder.submit.setVisibility(View.VISIBLE);
             }
         });
         holder.submit.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +65,7 @@ public class ShopCardAdapter extends BaseRecycleAdapter<ShopCardAdapter.BookView
             public void onClick(View view) {
                 if (updataBookNumber != null)
                     updataBookNumber.onUpdataNumber(position);
+                holder.submit.setVisibility(View.GONE);
             }
         });
 

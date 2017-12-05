@@ -16,6 +16,7 @@ import com.gxwz.wzxy.bookstoreapp.adapter.OrderBooksAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.CommentInfo;
+import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
@@ -29,24 +30,23 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class CommentEditActivity extends BaseActivity {
-    @BindView(R.id.recycle)
-    RecyclerView recycle;
     @BindView(R.id.ratingBar)
     RatingBar ratingBar;
     @BindView(R.id.comment_context)
     EditText comment;
     BookInfo bookInfo;
-    ArrayList<ShopCarInfo> shopCarInfos;
-    BookHAdapter mAdapter;
+    OrderInfo orderInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_edit);
         ButterKnife.bind(this);
-        shopCarInfos = (ArrayList<ShopCarInfo>) getIntent().getSerializableExtra("shopCarInfos");
-        initRecycle();
+        orderInfo = (OrderInfo) getIntent().getSerializableExtra("orderInfo");
+        if (bookInfo != null) bookInfo = orderInfo.getBookInfo();
     }
 
     @OnClick({R.id.submit})
@@ -65,26 +65,16 @@ public class CommentEditActivity extends BaseActivity {
         commentInfo.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                if (e==null){
-                    Log.e(TAG,"保存成功");
+                if (e == null) {
+                    orderInfo.setFlag(4);
+                    orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            finish();
+                        }
+                    });
                 }
             }
         });
-    }
-
-    /**
-     * 初始化数控数据列表
-     */
-    private void initRecycle() {
-        mAdapter = new BookHAdapter(context, shopCarInfos);
-        //创建默认的线性LayoutManager
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recycle.setLayoutManager(linearLayoutManager);
-        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        recycle.setHasFixedSize(true);
-        //创建并设置Adapter
-        recycle.setAdapter(mAdapter);
-        recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
     }
 }

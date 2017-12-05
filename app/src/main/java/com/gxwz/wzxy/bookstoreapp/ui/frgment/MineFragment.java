@@ -76,12 +76,19 @@ public class MineFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecycle();
-        showNumber(0);
-        showNumber(1);
-        showNumber(2);
-        showNumber(3);
-    }
 
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            showNumber(0);
+            showNumber(1);
+            showNumber(2);
+            showNumber(3);
+        } else {
+        }
+    }
     public void showNumber(final int flag) {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser() == null ? "" : BmobUser.getCurrentUser().getUsername());
