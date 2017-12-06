@@ -1,6 +1,10 @@
 package com.gxwz.wzxy.bookstoreapp.ui.frgment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +18,7 @@ import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
+import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -42,13 +47,14 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         ButterKnife.bind(this, view);
         initRecycle();
+        receiver();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadingOrder();
+
     }
 
     @Override
@@ -69,6 +75,36 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
             }
         });
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            loadingOrder();
+        } else {
+            // 相当于onpause()方法
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        context.unregisterReceiver(receiver);
+    }
+
+    public void receiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.Broadcast.FRASH_ORDER_DATA);
+        context.registerReceiver(receiver, intentFilter);
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            loadingOrder();
+        }
+    };
+
+
     /**
      * 初始化数控数据列表
      */
@@ -102,8 +138,9 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e!=null){
-                                            loadingOrder();
+                                        if(e==null){
+                                            orderInfos.get(position).setFlag(2);
+                                            mAdapter.notifyItemChanged(position);
                                         }
                                     }
                                 });
@@ -124,8 +161,9 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e!=null){
-                                            loadingOrder();
+                                        if(e==null){
+                                            orderInfos.get(position).setFlag(3);
+                                            mAdapter.notifyItemChanged(position);
                                         }
                                     }
                                 });
@@ -146,8 +184,9 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e!=null){
-                                            loadingOrder();
+                                        if(e==null){
+                                            orderInfos.get(position).setFlag(1);
+                                            mAdapter.notifyItemChanged(position);
                                         }
                                     }
                                 });
