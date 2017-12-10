@@ -67,7 +67,6 @@ public class BookDetailsActivity extends BaseActivity {
 
     public String bookId;
 
-    BookInfoFragment bookInfoFragment;
     BookDetailsFragment bookDetailsFragment;
     BookCommentFragment bookCommentFragment;
 
@@ -88,20 +87,16 @@ public class BookDetailsActivity extends BaseActivity {
     private void init() {
         //设置TabLayout的模式
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mTabLayout.addTab(mTabLayout.newTab().setText("商品"));
         mTabLayout.addTab(mTabLayout.newTab().setText("详情"));
         mTabLayout.addTab(mTabLayout.newTab().setText("评论"));
 
-        bookInfoFragment = new BookInfoFragment();
-        bookInfoFragment.setBookId(bookId);
         bookDetailsFragment = new BookDetailsFragment();
+        bookDetailsFragment.setBookId(bookId);
         bookCommentFragment = new BookCommentFragment();
-
-        titles.add("商品");
+        bookCommentFragment.setBookId(bookId);
         titles.add("详情");
         titles.add("评论");
 
-        fragments.add(bookInfoFragment);
         fragments.add(bookDetailsFragment);
         fragments.add(bookCommentFragment);
 

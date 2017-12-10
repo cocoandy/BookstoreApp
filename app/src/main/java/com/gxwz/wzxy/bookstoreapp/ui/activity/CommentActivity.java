@@ -1,18 +1,16 @@
-package com.gxwz.wzxy.bookstoreapp.ui.frgment;
+package com.gxwz.wzxy.bookstoreapp.ui.activity;
 
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.CommentAdapter;
-import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
-import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
+import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdapter;
+import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.CommentInfo;
+import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -25,46 +23,32 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-/**
- * Created by crucy on 2017/10/28.
- */
-
-public class BookCommentFragment extends BaseFragment {
+public class CommentActivity extends BaseActivity {
     @BindView(R.id.recycle)
     RecyclerView recycle;
     CommentAdapter mAdapter;
     List<CommentInfo> commentInfos = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
-    String bookId;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_book_comm, container, false);
-        ButterKnife.bind(this, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_comment);
+        ButterKnife.bind(this);
         initRecycle();
-        return view;
+        loading();
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        loading(bookId);
-    }
-
-    private void loading(String id) {
-        BookInfo info = new BookInfo();
-        info.setObjectId(id);
+    private void loading() {
         BmobQuery<CommentInfo> query = new BmobQuery<>();
-        query.addWhereEqualTo("bookInfo", info);
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser());
         query.include("user");
         query.include("bookInfo");
         query.findObjects(new FindListener<CommentInfo>() {
             @Override
             public void done(List<CommentInfo> list, BmobException e) {
-                if (e == null) {
+                if (e == null){
                     commentInfos.clear();
-                    for (CommentInfo info : list) {
+                    for (CommentInfo info:list){
                         commentInfos.add(info);
                     }
                     mAdapter.notifyDataSetChanged();
@@ -74,11 +58,12 @@ public class BookCommentFragment extends BaseFragment {
 
     }
 
+
     /**
      * 初始化数控数据列表
      */
     private void initRecycle() {
-        mAdapter = new CommentAdapter(context, commentInfos, false);
+        mAdapter = new CommentAdapter(context, commentInfos,true);
 
         //创建默认的线性LayoutManager
         linearLayoutManager = new LinearLayoutManager(context);
@@ -88,9 +73,5 @@ public class BookCommentFragment extends BaseFragment {
         //创建并设置Adapter
         recycle.setAdapter(mAdapter);
         recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
-    }
-
-    public void setBookId(String setBookId) {
-        this.bookId = setBookId;
     }
 }

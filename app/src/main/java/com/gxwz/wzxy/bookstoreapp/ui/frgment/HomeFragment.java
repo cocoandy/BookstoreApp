@@ -18,6 +18,7 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BooksMainActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.CommentActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
@@ -71,6 +72,7 @@ public class HomeFragment extends BaseFragment {
         iniData();
 
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -79,8 +81,11 @@ public class HomeFragment extends BaseFragment {
         } else {
         }
     }
+
     @OnClick({R.id.screach_books})
     public void onClick(View view) {
+
+        context.startActivity(new Intent(context, CommentActivity.class));
 //        new BlurPopupWindow.Builder(v.getContext())
 //                .setContentView(R.layout.layout_dialog_like)
 //                .bindClickListener(new View.OnClickListener() {
@@ -95,7 +100,8 @@ public class HomeFragment extends BaseFragment {
 //                .setTintColor(0x30000000)
 //                .build()
 //                .show();
-        startActivity(new Intent(context, BooksMainActivity.class));
+
+//        startActivity(new Intent(context, BooksMainActivity.class));
     }
 
     private void iniData() {

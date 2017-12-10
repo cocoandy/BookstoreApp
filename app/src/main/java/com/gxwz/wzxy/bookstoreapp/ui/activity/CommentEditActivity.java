@@ -14,6 +14,7 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.CommentInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
+import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
 import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 
 import butterknife.BindView;
@@ -42,7 +43,8 @@ public class CommentEditActivity extends BaseActivity {
         setContentView(R.layout.activity_comment_edit);
         ButterKnife.bind(this);
         orderInfo = (OrderInfo) getIntent().getSerializableExtra("orderInfo");
-        if (bookInfo != null) {
+        setTitle("评论");
+        if (orderInfo != null) {
             bookInfo = orderInfo.getBookInfo();
             Glide.with(context).load(bookInfo.getCover()).error(R.mipmap.ic_launcher).into(cover);
             name.setText(bookInfo.getName());
@@ -58,7 +60,10 @@ public class CommentEditActivity extends BaseActivity {
             return;
         }
         CommentInfo commentInfo = new CommentInfo();
-        commentInfo.setUserName(BmobUser.getCurrentUser().getUsername());
+        BmobUser user =  BmobUser.getCurrentUser();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setObjectId(user.getObjectId());
+        commentInfo.setUser(userInfo);
         commentInfo.setBookInfo(bookInfo);
         commentInfo.setContext(commStr);
         commentInfo.setFating(number);

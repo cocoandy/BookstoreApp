@@ -9,8 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.BookInfoAdapter;
 import com.gxwz.wzxy.bookstoreapp.adapter.MineMenuAdapter;
@@ -59,6 +63,17 @@ public class MineFragment extends BaseFragment {
     TextView mTvComm;
     @BindView(R.id.ming_order_back)
     TextView mTvBack;
+    @BindView(R.id.user_login)
+    TextView mTvLogin;
+
+    @BindView(R.id.user_name)
+    TextView mTvName;
+    @BindView(R.id.user_cover)
+    ImageView mImgCover;
+    @BindView(R.id.user_genter)
+    ImageView mImgGenter;
+    @BindView(R.id.submit)
+    Button mBtnLoginout;
 
     MineMenuAdapter adapter;
     GridLayoutManager layoutManager;
@@ -72,12 +87,24 @@ public class MineFragment extends BaseFragment {
         return view;
     }
 
+    public void initData() {
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        mTvName.setText(bmobUser == null ? "" : bmobUser.getUsername());
+        mTvNoPay.setText("0");
+        mTvPay.setText("0");
+        mTvComm.setText("0");
+        mTvBack.setText("0");
+        mTvLogin.setVisibility(isLogin() ? View.GONE : View.VISIBLE);
+        mBtnLoginout.setVisibility(!isLogin() ? View.GONE : View.VISIBLE);
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecycle();
-
+        initData();
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -89,6 +116,7 @@ public class MineFragment extends BaseFragment {
         } else {
         }
     }
+
     public void showNumber(final int flag) {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser() == null ? "" : BmobUser.getCurrentUser().getUsername());
@@ -116,32 +144,43 @@ public class MineFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.userinfo_edit})
+    @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.userinfo_edit, R.id.submit, R.id.user_login})
     public void onClick(View view) {
+        if (!isLogin()&&view.getId()!=R.id.user_login) {
+            Toast.makeText(context, "清先登录", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.userinfo_edit:
-                if (isLogin()){
+                if (isLogin()) {
                     startActivity(new Intent(context, MineEditActivity.class));
-                }else {
+                } else {
                     startActivity(new Intent(context, LoginActivity.class));
                 }
                 return;
             case R.id.ming_order_nopay:
                 intent.setClass(context, OrderActivity.class);
-                intent.putExtra("flag",0);
+                intent.putExtra("flag", 0);
                 break;
             case R.id.ming_order_pay:
                 intent.setClass(context, OrderActivity.class);
-                intent.putExtra("flag",1);
+                intent.putExtra("flag", 1);
                 break;
             case R.id.ming_order_comm:
                 intent.setClass(context, OrderActivity.class);
-                intent.putExtra("flag",2);
+                intent.putExtra("flag", 2);
                 break;
             case R.id.ming_order_back:
                 intent.setClass(context, OrderActivity.class);
-                intent.putExtra("flag",3);
+                intent.putExtra("flag", 3);
+                break;
+            case R.id.submit:
+                BmobUser.logOut();   //清除缓存用户对象
+                initData();
+                return;
+            case R.id.user_login:
+                intent.setClass(context, LoginActivity.class);
                 break;
         }
 
@@ -163,7 +202,10 @@ public class MineFragment extends BaseFragment {
         adapter.setItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleAdapter.ViewHolder holder, int position) {
-
+                if (!isLogin()) {
+                    Toast.makeText(context, "清先登录", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 switch (menuInfos.get(position).getPage()) {
                     case 1:
                         startActivity(new Intent(context, BookManegeActivity.class));

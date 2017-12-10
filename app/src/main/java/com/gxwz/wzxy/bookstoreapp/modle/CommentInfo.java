@@ -7,17 +7,17 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class CommentInfo extends BmobObject {
-    public String userName;
+    public UserInfo user;
     public BookInfo bookInfo;
     public String context;
     public Float fating;
 
-    public String getUserName() {
-        return userName;
+    public UserInfo getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
     public BookInfo getBookInfo() {

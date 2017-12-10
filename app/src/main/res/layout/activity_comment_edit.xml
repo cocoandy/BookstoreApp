@@ -41,7 +41,7 @@
         style="@style/editText"
         android:layout_height="wrap_content"
         android:gravity="clip_horizontal"
-        android:hint="username"
+        android:hint="请留下你的肺腑之言呗"
         android:minLines="7" />
 
     <View

@@ -45,7 +45,8 @@
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".ui.activity.BooksMainActivity" />
         <activity android:name=".ui.activity.OrderActivity" />
-        <activity android:name=".ui.activity.CommentEditActivity"></activity>
+        <activity android:name=".ui.activity.CommentEditActivity" />
+        <activity android:name=".ui.activity.CommentActivity"></activity>
     </application>
 
 </manifest>
