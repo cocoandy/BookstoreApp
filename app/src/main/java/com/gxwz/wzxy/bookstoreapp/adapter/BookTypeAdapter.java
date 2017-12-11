@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
+import com.gxwz.wzxy.bookstoreapp.modle.BookTypeInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
 
 import java.util.List;
@@ -19,9 +20,9 @@ import java.util.List;
  * Created by crucy on 2017/10/28.
  */
 
-public class BookHAdapter extends BaseRecycleAdapter<BookHAdapter.BookViewHolder> {
+public class BookTypeAdapter extends BaseRecycleAdapter<BookTypeAdapter.BookViewHolder> {
 
-    public BookHAdapter(Context context, List mDatas) {
+    public BookTypeAdapter(Context context, List mDatas) {
         super(context, mDatas);
     }
 
@@ -33,18 +34,17 @@ public class BookHAdapter extends BaseRecycleAdapter<BookHAdapter.BookViewHolder
 
     @Override
     public void onBindViewHolders(BookViewHolder holder, int position) {
-        ShopCarInfo shopCarInfo = (ShopCarInfo) mDatas.get(position);
-        BookInfo info = shopCarInfo.getBookInfo();
-        Glide.with(context).load(info.getCover()).error(R.mipmap.ic_launcher).into(holder.cover);
+        BookTypeInfo typeInfo = (BookTypeInfo) mDatas.get(position);
+        holder.type.setText(typeInfo.getType());
     }
 
 
     public class BookViewHolder extends BaseRecycleAdapter.ViewHolder {
-        public ImageView cover;
+        public TextView type;
 
         public BookViewHolder(View itemView) {
             super(itemView);
-            cover = (ImageView) itemView.findViewById(R.id.img_book_cover);
+            type = (TextView) itemView.findViewById(R.id.tv_book_type);
         }
     }
 }

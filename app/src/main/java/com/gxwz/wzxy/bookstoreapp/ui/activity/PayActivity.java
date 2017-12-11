@@ -80,8 +80,8 @@ public class PayActivity extends BaseActivity {
                 if(e==null){
                     if (orderInfo == null) {
                         startActivity(new Intent(context,MainActivity.class));
-                        context.sendBroadcast(new Intent(Constant.Broadcast.FRASH_CAR_DATA));
                     }
+                    context.sendBroadcast(new Intent(Constant.Broadcast.FRASH_CAR_DATA));
                     finish();
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());

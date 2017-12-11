@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
                 if(list != null) {
-                    orderInfos.clear();
+                     orderInfos.clear();
                     orderInfos.addAll(list);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -93,6 +94,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
 
     public void receiver() {
         IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.Broadcast.FRASH_CAR_DATA);
         intentFilter.addAction(Constant.Broadcast.FRASH_ORDER_DATA);
         context.registerReceiver(receiver, intentFilter);
     }
@@ -100,6 +102,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.e("TAG_ACTION",intent.getAction());
             loadingOrder();
         }
     };
@@ -139,8 +142,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                     @Override
                                     public void done(BmobException e) {
                                         if(e==null){
-                                            orderInfos.get(position).setFlag(2);
-                                            mAdapter.notifyItemChanged(position);
+                                            loadingOrder();
                                         }
                                     }
                                 });
@@ -157,13 +159,12 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 OrderInfo orderInfo = orderInfos.get(position);
-                                orderInfo.setFlag(2);
+                                orderInfo.setFlag(3);
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
                                         if(e==null){
-                                            orderInfos.get(position).setFlag(3);
-                                            mAdapter.notifyItemChanged(position);
+                                            loadingOrder();
                                         }
                                     }
                                 });
@@ -185,8 +186,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                     @Override
                                     public void done(BmobException e) {
                                         if(e==null){
-                                            orderInfos.get(position).setFlag(1);
-                                            mAdapter.notifyItemChanged(position);
+                                            loadingOrder();
                                         }
                                     }
                                 });

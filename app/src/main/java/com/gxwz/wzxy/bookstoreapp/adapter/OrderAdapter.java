@@ -67,6 +67,12 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.BookViewHolder
         holder.order_id.setText(orderInfo.getObjectId());
         holder.order_time.setText(orderInfo.getCreatedAt());
 
+        holder.contrl_pay.setVisibility(View.GONE);
+        holder.contrl_get.setVisibility(View.GONE);
+        holder.contrl_comm.setVisibility(View.GONE);
+        holder.contrl_back.setVisibility(View.GONE);
+        holder.contrl_cancel.setVisibility(View.GONE);
+
         switch (orderInfo.getFlag()) {
             case 0:
                 holder.contrl_pay.setVisibility(View.VISIBLE);

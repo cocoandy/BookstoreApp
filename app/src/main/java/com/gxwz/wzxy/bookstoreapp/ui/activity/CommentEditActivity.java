@@ -50,7 +50,7 @@ public class CommentEditActivity extends BaseActivity {
             name.setText(bookInfo.getName());
         }
     }
-
+         
     @OnClick({R.id.submit})
     public void onClick(View view) {
         float number = ratingBar.getRating();
@@ -77,6 +77,7 @@ public class CommentEditActivity extends BaseActivity {
                         public void done(BmobException e) {
                             startActivity(new Intent(context,MainActivity.class));
                             context.sendBroadcast(new Intent(Constant.Broadcast.FRASH_ORDER_DATA));
+                            context.sendBroadcast(new Intent(Constant.Broadcast.FRASH_CAR_DATA));
                             finish();
                         }
                     });

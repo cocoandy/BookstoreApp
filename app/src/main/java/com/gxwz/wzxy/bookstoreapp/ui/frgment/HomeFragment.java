@@ -17,6 +17,7 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.BooksActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BooksMainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.CommentActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
@@ -85,7 +86,7 @@ public class HomeFragment extends BaseFragment {
     @OnClick({R.id.screach_books})
     public void onClick(View view) {
 
-        context.startActivity(new Intent(context, CommentActivity.class));
+        context.startActivity(new Intent(context, BooksActivity.class));
 //        new BlurPopupWindow.Builder(v.getContext())
 //                .setContentView(R.layout.layout_dialog_like)
 //                .bindClickListener(new View.OnClickListener() {
