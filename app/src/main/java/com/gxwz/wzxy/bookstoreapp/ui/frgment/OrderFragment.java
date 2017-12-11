@@ -28,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -64,6 +65,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
     }
     private void loadingOrder() {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
+        query.addWhereEqualTo("userName", BmobUser.getCurrentUser()==null?"...":BmobUser.getCurrentUser().getObjectId());
         query.include("bookInfo");
         query.findObjects(new FindListener<OrderInfo>() {
             @Override

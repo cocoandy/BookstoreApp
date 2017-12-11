@@ -1,6 +1,9 @@
 package com.gxwz.wzxy.bookstoreapp.ui.frgment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -32,6 +35,7 @@ import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
+import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 
@@ -103,6 +107,7 @@ public class MineFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initRecycle();
         initData();
+        registBrocast();
     }
 
     @Override
@@ -146,7 +151,7 @@ public class MineFragment extends BaseFragment {
 
     @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.userinfo_edit, R.id.submit, R.id.user_login})
     public void onClick(View view) {
-        if (!isLogin()&&view.getId()!=R.id.user_login) {
+        if (!isLogin() && view.getId() != R.id.user_login) {
             Toast.makeText(context, "清先登录", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -185,6 +190,29 @@ public class MineFragment extends BaseFragment {
         }
 
         startActivity(intent);
+    }
+
+    public void registBrocast() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constant.Broadcast.LOGIN_SUCCESS);
+        context.registerReceiver(receiver, filter);
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showNumber(0);
+            showNumber(1);
+            showNumber(2);
+            showNumber(3);
+            initData();
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        context.unregisterReceiver(receiver);
     }
 
     /**
