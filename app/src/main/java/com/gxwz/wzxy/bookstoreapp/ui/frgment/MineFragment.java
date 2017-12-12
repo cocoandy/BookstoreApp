@@ -77,7 +77,7 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.user_genter)
     ImageView mImgGenter;
     @BindView(R.id.submit)
-    Button mBtnLoginout;
+    TextView mBtnLoginout;
 
     MineMenuAdapter adapter;
     GridLayoutManager layoutManager;
@@ -92,6 +92,7 @@ public class MineFragment extends BaseFragment {
     }
 
     public void initData() {
+
         BmobUser bmobUser = BmobUser.getCurrentUser();
         mTvName.setText(bmobUser == null ? "" : bmobUser.getUsername());
         mTvNoPay.setText("0");
@@ -108,6 +109,10 @@ public class MineFragment extends BaseFragment {
         initRecycle();
         initData();
         registBrocast();
+        showNumber(0);
+        showNumber(1);
+        showNumber(2);
+        showNumber(3);
     }
 
     @Override

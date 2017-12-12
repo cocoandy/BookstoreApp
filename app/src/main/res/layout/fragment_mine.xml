@@ -63,6 +63,17 @@
                 android:layout_marginTop="8dp"
                 android:text="登录/注册"
                 android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/submit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:background="@drawable/shape_text_bg_8"
+                android:layout_marginTop="8dp"
+                android:text="退   出"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -111,9 +122,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/submit"
-        style="@style/button"
-        android:text="退                 出" />
 </LinearLayout>
