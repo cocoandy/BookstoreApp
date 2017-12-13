@@ -27,6 +27,7 @@
                 android:src="@mipmap/icon_edit"
                  />
 
+
             <ImageView
                 android:id="@+id/user_cover"
                 android:layout_width="80dp"
