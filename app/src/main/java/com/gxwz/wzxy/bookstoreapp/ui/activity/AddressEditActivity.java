@@ -73,7 +73,7 @@ public class AddressEditActivity extends BaseActivity {
         initC();
         initA();
         initJsonData();
-        toolbarBreak("确认订单");
+        toolbarBreak("新增地址");
     }
 
     public void initP() {
@@ -177,9 +177,6 @@ public class AddressEditActivity extends BaseActivity {
                 addressInfo.save(new SaveListener<String>() {
                     @Override
                     public void done(String s, BmobException e) {
-                        Intent intent = new Intent();
-                        intent.putExtra("address", addressInfo);
-                        setResult(1, intent);
                         finish();
                     }
                 });

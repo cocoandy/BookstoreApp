@@ -76,6 +76,7 @@ public class OrderEditActivity extends BaseActivity {
 
     private void loadingAddr() {
         BmobQuery<AddressInfo> query = new BmobQuery<>();
+        query.addWhereEqualTo("userInfo", BmobUser.getCurrentUser());
         query.order("-flag");
         query.findObjects(new FindListener<AddressInfo>() {
             @Override
@@ -108,7 +109,7 @@ public class OrderEditActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.order_edit_address:
-                startActivityForResult(new Intent(OrderEditActivity.this, AddressEditActivity.class), 0);
+                startActivityForResult(new Intent(OrderEditActivity.this, AddressActivity.class), 0);
                 break;
             case R.id.tv_total_buy:
                 saveOrder();

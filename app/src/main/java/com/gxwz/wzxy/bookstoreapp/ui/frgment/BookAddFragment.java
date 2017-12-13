@@ -1,5 +1,9 @@
 package com.gxwz.wzxy.bookstoreapp.ui.frgment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -30,6 +34,8 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by crucy on 2017/10/28.
@@ -71,12 +77,49 @@ public class BookAddFragment extends BaseFragment {
         return view;
     }
 
-    @OnClick(R.id.book_type_submit)
+    @OnClick({R.id.book_type_submit, R.id.img_cover})
     public void onClick(View view) {
-        Log.e(TAG, tvDirectory.getText().toString());
-        saveBook();
-    }
+        switch (view.getId()) {
+            case R.id.book_type_submit:
+                Log.e(TAG, tvDirectory.getText().toString());
+                saveBook();
+                break;
+            case R.id.img_cover:
+                /**
+                 * 打开选择图片的界面
+                 */
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");//相片类型
+                startActivityForResult(intent, 0);
 
+                break;
+        }
+
+    }
+Uri uri;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**
+         * 从相册中选取图片的请求标志
+         */
+
+        if (resultCode == RESULT_OK) {
+            try {
+                /**
+                 * 该uri是上一个Activity返回的
+                 */
+                uri = data.getData();
+                Bitmap bit = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri));
+                imgCover.setImageBitmap(bit);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("tag", e.getMessage());
+            }
+        } else {
+            Log.i("liang", "失败");
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

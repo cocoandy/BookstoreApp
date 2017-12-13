@@ -173,13 +173,7 @@ public class BooksActivity extends BaseActivity {
                 }
             }
 
-            if (i % 3 == 0) {
-                tv.setTextColor(Color.parseColor("#FF0000"));
-            } else if (i % 5 == 0) {
-                tv.setTextColor(Color.parseColor("#66CD00"));
-            } else {
-                tv.setTextColor(Color.parseColor("#666666"));
-            }
+            tv.setTextColor(Color.parseColor("#FF0000"));
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -12,6 +12,15 @@ public class UserInfo extends BmobUser {
     String nickname;//昵称
     String cover;//头像
     String birthday;//生日
+    Integer root;
+
+    public Integer getRoot() {
+        return root;
+    }
+
+    public void setRoot(Integer root) {
+        this.root = root;
+    }
 
     public Integer getGender() {
         return gender;

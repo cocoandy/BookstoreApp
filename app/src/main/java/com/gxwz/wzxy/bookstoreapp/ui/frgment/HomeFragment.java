@@ -55,10 +55,10 @@ public class HomeFragment extends BaseFragment {
     LinearLayoutManager linearLayoutManager;
     BookInfoAdapter adapter;
 
-    String[] url = new String[]{"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3711681965,2673607050&fm=27&gp=0.jpg",
+    String[] url = new String[]{
+            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3711681965,2673607050&fm=27&gp=0.jpg",
             "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513137685245&di=628c86912edeeeefde629d50c50f2526&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0194c857e62cee0000012e7ef24a0e.jpg%40900w_1l_2o_100sh.jpg",
             "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513137685256&di=594bb2187b68a062a3c91f7d7140707f&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F19%2F63%2F89%2F00V58PICwQa_1024.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513137685255&di=f774b46589da1f28b87b545de2920c3f&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F17%2F43%2F02%2F92958PICS8Q_1024.jpg ",
             "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3308251966,730227294&fm=27&gp=0.jpg"};
 
     @Nullable

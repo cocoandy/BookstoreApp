@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
 import com.gxwz.wzxy.bookstoreapp.modle.MineMenuInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookManegeActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.CommentActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MineEditActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderActivity;
@@ -50,6 +52,8 @@ import cn.bmob.v3.listener.FindListener;
 public class MineFragment extends BaseFragment {
     @BindView(R.id.recycle)
     RecyclerView recycle;
+    @BindView(R.id.ll_mine_root)
+    LinearLayout mine_root;
 
     @BindView(R.id.ming_order_nopay)
     TextView mTvNoPay;
@@ -84,6 +88,11 @@ public class MineFragment extends BaseFragment {
     }
 
     public void initData() {
+        if (userInfo.getRoot()>0){
+            mine_root.setVisibility(View.VISIBLE);
+        }else {
+            mine_root.setVisibility(View.GONE);
+        }
         Glide.with(context)
                 .load(userInfo.getCover()).error(R.mipmap.ic_launcher)
                 .transform(new CenterCrop(context), new GlideRoundTransformUtils(context, 15))
@@ -152,7 +161,7 @@ public class MineFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.mine_intro, R.id.submit, R.id.user_login})
+    @OnClick({R.id.mine_comm,R.id.mine_order,R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.mine_intro, R.id.submit, R.id.user_login})
     public void onClick(View view) {
         if (!isLogin() && view.getId() != R.id.user_login) {
             Toast.makeText(context, "清先登录", Toast.LENGTH_SHORT).show();
@@ -192,6 +201,11 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.mine_order:
                 intent.setClass(context, OrderActivity.class);
+                break;
+            case R.id.mine_comm:
+//                intent.setClass(context, BookManegeActivity.class);
+//                startActivity(new Intent(context, BookManegeActivity.class));
+                intent.setClass(context, CommentActivity.class);
                 break;
         }
 
