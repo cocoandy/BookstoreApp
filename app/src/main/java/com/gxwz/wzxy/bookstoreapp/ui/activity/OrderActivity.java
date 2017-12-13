@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdapter;
@@ -41,13 +42,14 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
         ButterKnife.bind(this);
         initRecycle();
         loadingOrder();
+        toolbarBreak("订单列表");
     }
 
     private void loadingOrder() {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.include("bookInfo");
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
-        if (flag>0) query.addWhereEqualTo("flag",flag);
+        if (flag>=0) query.addWhereEqualTo("flag",flag);
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {

@@ -36,6 +36,7 @@ public class CommentActivity extends BaseActivity {
         ButterKnife.bind(this);
         initRecycle();
         loading();
+        toolbarBreak("评论列表");
     }
 
     private void loading() {

@@ -70,6 +70,7 @@ public class OrderEditActivity extends BaseActivity {
         initRecycle();
         loadingAddr();
         tvMoney.setText(total);
+        toolbarBreak("确认订单");
 
     }
 

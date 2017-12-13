@@ -12,32 +12,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.gxwz.wzxy.bookstoreapp.R;
-import com.gxwz.wzxy.bookstoreapp.adapter.BookInfoAdapter;
 import com.gxwz.wzxy.bookstoreapp.adapter.MineMenuAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
-import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.MineMenuInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
-import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookManegeActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
-import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.MineEditActivity;
-import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
-import com.gxwz.wzxy.bookstoreapp.ui.activity.MainActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderActivity;
-import com.gxwz.wzxy.bookstoreapp.ui.activity.PayActivity;
 import com.gxwz.wzxy.bookstoreapp.utils.Constant;
+import com.gxwz.wzxy.bookstoreapp.utils.GlideRoundTransformUtils;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
-import com.zhy.adapter.recyclerview.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +42,6 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import butterknife.OnClick;
 
 /**
  * Created by crucy on 2017/10/28.
@@ -92,6 +84,10 @@ public class MineFragment extends BaseFragment {
     }
 
     public void initData() {
+        Glide.with(context)
+                .load(userInfo.getCover()).error(R.mipmap.ic_launcher)
+                .transform(new CenterCrop(context), new GlideRoundTransformUtils(context, 15))
+                .into(mImgCover);
 
         BmobUser bmobUser = BmobUser.getCurrentUser();
         mTvName.setText(bmobUser == null ? "" : bmobUser.getUsername());
@@ -119,6 +115,7 @@ public class MineFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
+            userInfo = currentUser();
             showNumber(0);
             showNumber(1);
             showNumber(2);
@@ -126,6 +123,7 @@ public class MineFragment extends BaseFragment {
         } else {
         }
     }
+
 
     public void showNumber(final int flag) {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
@@ -154,7 +152,7 @@ public class MineFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.userinfo_edit, R.id.submit, R.id.user_login})
+    @OnClick({R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.mine_intro, R.id.submit, R.id.user_login})
     public void onClick(View view) {
         if (!isLogin() && view.getId() != R.id.user_login) {
             Toast.makeText(context, "清先登录", Toast.LENGTH_SHORT).show();
@@ -162,7 +160,7 @@ public class MineFragment extends BaseFragment {
         }
         Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.userinfo_edit:
+            case R.id.mine_intro:
                 if (isLogin()) {
                     startActivity(new Intent(context, MineEditActivity.class));
                 } else {
@@ -191,6 +189,9 @@ public class MineFragment extends BaseFragment {
                 return;
             case R.id.user_login:
                 intent.setClass(context, LoginActivity.class);
+                break;
+            case R.id.mine_order:
+                intent.setClass(context, OrderActivity.class);
                 break;
         }
 

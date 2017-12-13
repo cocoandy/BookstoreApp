@@ -81,7 +81,7 @@ public class BookDetailsActivity extends BaseActivity {
         ButterKnife.bind(this);
         bookId = getIntent().getStringExtra("bookId");
         init();
-
+        toolbarBreak("商品详情");
     }
 
     private void init() {

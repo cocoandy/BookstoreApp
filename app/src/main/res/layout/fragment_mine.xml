@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dividing_line"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -21,16 +22,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-
                 android:layout_margin="10dp"
-                android:src="@mipmap/icon_edit" />
+                android:src="@mipmap/icon_edit"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/user_cover"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
                 android:src="@mipmap/icon_user_cover" />
 
             <ImageView
@@ -40,8 +41,8 @@
                 android:layout_alignBottom="@+id/user_cover"
                 android:layout_alignRight="@+id/user_cover"
                 android:layout_marginRight="5dp"
-                android:visibility="gone"
-                android:src="@mipmap/icon_man" />
+                android:src="@mipmap/icon_man"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/user_name"
@@ -52,30 +53,34 @@
                 android:layout_marginTop="8dp"
                 android:text="User"
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/user_login"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_name"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:background="@drawable/shape_text_bg_8"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/shape_text_bg_8"
+                android:gravity="center"
                 android:text="登录/注册"
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/submit"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_name"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:background="@drawable/shape_text_bg_8"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/shape_text_bg_8"
+                android:gravity="center"
                 android:text="退   出"
                 android:textColor="@color/white" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,10 +90,10 @@
             android:id="@+id/ming_order_nopay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_bg_0"
             android:layout_weight="1"
-            android:text="待发货(0)"
-            android:gravity="center" />
+            android:background="@drawable/shape_bg_0"
+            android:gravity="center"
+            android:text="待发货(0)" />
 
         <TextView
             android:id="@+id/ming_order_pay"
@@ -102,24 +107,72 @@
         <TextView
             android:id="@+id/ming_order_comm"
             android:layout_width="match_parent"
-            android:background="@drawable/shape_bg_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="待评价(0)"
-            android:gravity="center" />
+            android:background="@drawable/shape_bg_0"
+            android:gravity="center"
+            android:text="待评价(0)" />
+
         <TextView
             android:id="@+id/ming_order_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_bg_0"
             android:layout_weight="1"
-            android:text="售后(0)"
-            android:gravity="center" />
+            android:background="@drawable/shape_bg_0"
+            android:gravity="center"
+            android:text="售后(0)" />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle"
+    <TextView
+        android:id="@+id/mine_intro"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableRight="@mipmap/ic_direction_right"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:background="@color/white"
+        android:layout_marginBottom="0.5dp"
+        android:text="我的信息" />
+    <TextView
+        android:id="@+id/mine_order"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableRight="@mipmap/ic_direction_right"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:background="@color/white"
+        android:layout_marginBottom="0.5dp"
+        android:text="我的订单" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableRight="@mipmap/ic_direction_right"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:background="@color/white"
+        android:layout_marginBottom="0.5dp"
+        android:text="我的信息" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableRight="@mipmap/ic_direction_right"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:background="@color/white"
+        android:layout_marginBottom="0.5dp"
+        android:text="我的信息" />
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:background="@color/white"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 </LinearLayout>

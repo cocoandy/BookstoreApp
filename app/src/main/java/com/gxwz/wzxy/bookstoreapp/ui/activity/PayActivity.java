@@ -60,6 +60,7 @@ public class PayActivity extends BaseActivity {
             orderInfos = (ArrayList<OrderInfo>) getIntent().getSerializableExtra("orderInfos");
             mTvTotal.setText(getIntent().getStringExtra("total"));
         }
+        toolbarBreak("支付");
     }
 
     @OnClick({R.id.submit})

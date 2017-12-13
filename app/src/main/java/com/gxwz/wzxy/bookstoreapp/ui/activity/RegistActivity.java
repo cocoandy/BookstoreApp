@@ -5,12 +5,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
+import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
 import com.gxwz.wzxy.bookstoreapp.utils.Utils;
 
@@ -23,7 +25,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
-public class RegistActivity extends AppCompatActivity {
+public class RegistActivity extends BaseActivity {
     @BindView(R.id.rejest_number)
     EditText etNumber;
     @BindView(R.id.rejest_code)
@@ -62,6 +64,7 @@ public class RegistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
         ButterKnife.bind(this);
+        toolbarBreak("注册");
     }
 public boolean checkUser(String number){
     final boolean[] isUserExit = {false};

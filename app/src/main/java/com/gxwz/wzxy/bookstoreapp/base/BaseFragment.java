@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
+import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.RegistActivity;
 
@@ -23,12 +24,13 @@ import cn.bmob.v3.BmobUser;
 public class BaseFragment extends Fragment{
     public Context context;
     public static final String TAG = "TAG_BOOKAPP";
-
+    public UserInfo userInfo;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
         DialogUIUtils.init(context);
+        userInfo = currentUser();
     }
 
     @Override
@@ -45,5 +47,10 @@ public class BaseFragment extends Fragment{
             return true;
         }
         return false;
+    }
+
+    public UserInfo currentUser(){
+        UserInfo userInfo = BmobUser.getCurrentUser(UserInfo.class);
+        return userInfo;
     }
 }

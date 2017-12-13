@@ -49,6 +49,7 @@ public class CommentEditActivity extends BaseActivity {
             Glide.with(context).load(bookInfo.getCover()).error(R.mipmap.ic_launcher).into(cover);
             name.setText(bookInfo.getName());
         }
+        toolbarBreak("发表评论");
     }
          
     @OnClick({R.id.submit})

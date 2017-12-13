@@ -19,6 +19,7 @@ import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.LoginActivity;
 import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
@@ -62,16 +63,18 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadingOrder();
     }
     private void loadingOrder() {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
-        query.addWhereEqualTo("userName", BmobUser.getCurrentUser()==null?"...":BmobUser.getCurrentUser().getObjectId());
         query.include("bookInfo");
+        query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
+                Log.e("TAG_LIST","list:"+list.size());
                 if(list != null) {
-                     orderInfos.clear();
+                    orderInfos.clear();
                     orderInfos.addAll(list);
                     mAdapter.notifyDataSetChanged();
                 }

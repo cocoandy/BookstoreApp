@@ -4,16 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="购物车"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </android.support.v7.widget.Toolbar>
+
     <include
         layout="@layout/view_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/ll_item_buy" />
+        android:layout_above="@+id/ll_item_buy"
+        android:layout_below="@+id/toolbar" />
 
     <LinearLayout
         android:id="@+id/ll_item_buy"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -24,9 +44,9 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
-            android:textSize="16sp"
+            android:text="总价：￥0.00"
             android:textColor="@color/red"
-            android:text="总价：￥0.00" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_total_buy"
@@ -34,8 +54,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/red"
-            android:textSize="14sp"
             android:gravity="center"
-            android:text="结算" />
+            android:text="结算"
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>
