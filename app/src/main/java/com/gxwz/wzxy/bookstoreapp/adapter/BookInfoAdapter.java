@@ -40,7 +40,7 @@ public class BookInfoAdapter extends BaseRecycleAdapter<BookInfoAdapter.BookView
         holder.name.setText(info.getName());
         holder.actor.setText("作者："+info.getAuthor());
         holder.press.setText("出版社："+info.getPress());
-        holder.price.setText("价格：￥"+info.getPrice());
+        holder.price.setText("￥"+info.getPrice());
         holder.comment.setText(info.getComment()+"条评论");
         Glide.with(context).load(info.getCover()).error(R.mipmap.ic_launcher).into(holder.cover);
     }

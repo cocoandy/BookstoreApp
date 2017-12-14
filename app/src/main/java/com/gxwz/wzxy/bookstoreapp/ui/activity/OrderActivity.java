@@ -76,7 +76,6 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
         //创建并设置Adapter
         recycle.setAdapter(mAdapter);
         mAdapter.setOnOrderClick(this);
-        recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
     }
 
     @Override
@@ -113,7 +112,7 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 OrderInfo orderInfo = orderInfos.get(position);
-                                orderInfo.setFlag(2);
+                                orderInfo.setFlag(3);
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {

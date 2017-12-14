@@ -88,15 +88,15 @@ public class MineFragment extends BaseFragment {
     }
 
     public void initData() {
-        if (userInfo.getRoot()>0){
+        if (userInfo!=null&&userInfo.getRoot()>=0){
             mine_root.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(userInfo.getCover()).error(R.mipmap.ic_launcher)
+                    .transform(new CenterCrop(context), new GlideRoundTransformUtils(context, 15))
+                    .into(mImgCover);
         }else {
             mine_root.setVisibility(View.GONE);
         }
-        Glide.with(context)
-                .load(userInfo.getCover()).error(R.mipmap.ic_launcher)
-                .transform(new CenterCrop(context), new GlideRoundTransformUtils(context, 15))
-                .into(mImgCover);
 
         BmobUser bmobUser = BmobUser.getCurrentUser();
         mTvName.setText(bmobUser == null ? "" : bmobUser.getUsername());
@@ -161,7 +161,8 @@ public class MineFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.mine_comm,R.id.mine_order,R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm, R.id.ming_order_back, R.id.mine_intro, R.id.submit, R.id.user_login})
+    @OnClick({R.id.mine_comm,R.id.mine_order,R.id.ming_order_nopay, R.id.ming_order_pay, R.id.ming_order_comm,
+            R.id.ming_order_back, R.id.mine_intro, R.id.submit, R.id.user_login,R.id.admin_book,R.id.admin_user,R.id.admin_order})
     public void onClick(View view) {
         if (!isLogin() && view.getId() != R.id.user_login) {
             Toast.makeText(context, "清先登录", Toast.LENGTH_SHORT).show();
@@ -205,6 +206,16 @@ public class MineFragment extends BaseFragment {
             case R.id.mine_comm:
 //                intent.setClass(context, BookManegeActivity.class);
 //                startActivity(new Intent(context, BookManegeActivity.class));
+                intent.setClass(context, CommentActivity.class);
+                break;
+            //管理员权限
+            case R.id.admin_book:
+                intent.setClass(context, BookManegeActivity.class);
+                break;
+            case R.id.admin_user:
+                intent.setClass(context, CommentActivity.class);
+                break;
+            case R.id.admin_order:
                 intent.setClass(context, CommentActivity.class);
                 break;
         }

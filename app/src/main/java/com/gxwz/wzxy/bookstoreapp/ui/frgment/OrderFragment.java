@@ -38,12 +38,13 @@ import cn.bmob.v3.listener.UpdateListener;
  * Created by crucy on 2017/10/28.
  */
 
-public class OrderFragment extends BaseFragment implements OrderAdapter.OrderClick{
+public class OrderFragment extends BaseFragment implements OrderAdapter.OrderClick {
     @BindView(R.id.recycle)
     RecyclerView recycle;
     OrderAdapter mAdapter;
     List<OrderInfo> orderInfos = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,17 +64,21 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         loadingOrder();
     }
+
     private void loadingOrder() {
+        if (currentUser() == null)
+            return;
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.include("bookInfo");
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
-                Log.e("TAG_LIST","list:"+list.size());
-                if(list != null) {
+                Log.e("TAG_LIST", "list:" + list.size());
+                if (list != null) {
                     orderInfos.clear();
                     orderInfos.addAll(list);
                     mAdapter.notifyDataSetChanged();
@@ -81,6 +86,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
             }
         });
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -107,7 +113,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("TAG_ACTION",intent.getAction());
+            Log.e("TAG_ACTION", intent.getAction());
             loadingOrder();
         }
     };
@@ -127,17 +133,16 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
         //创建并设置Adapter
         recycle.setAdapter(mAdapter);
         mAdapter.setOnOrderClick(this);
-        recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
     }
 
 
     @Override
     public void onClick(int flag, final int position) {
-        switch (flag){
+        switch (flag) {
             case 0:
-                new  AlertDialog.Builder(context)
-                        .setTitle("收货" )
-                        .setMessage("确定收货吗？" )
+                new AlertDialog.Builder(context)
+                        .setTitle("收货")
+                        .setMessage("确定收货吗？")
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -146,20 +151,20 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e==null){
+                                        if (e == null) {
                                             loadingOrder();
                                         }
                                     }
                                 });
                             }
                         })
-                        .setNegativeButton("否" , null)
+                        .setNegativeButton("否", null)
                         .show();
                 break;
             case 1:
-                new  AlertDialog.Builder(context)
-                        .setTitle("退款" )
-                        .setMessage("确定退款？" )
+                new AlertDialog.Builder(context)
+                        .setTitle("退款")
+                        .setMessage("确定退款？")
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -168,20 +173,20 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e==null){
+                                        if (e == null) {
                                             loadingOrder();
                                         }
                                     }
                                 });
                             }
                         })
-                        .setNegativeButton("否" , null)
+                        .setNegativeButton("否", null)
                         .show();
                 break;
             case 2:
-                new  AlertDialog.Builder(context)
-                        .setTitle("取消" )
-                        .setMessage("确定取消退款？" )
+                new AlertDialog.Builder(context)
+                        .setTitle("取消")
+                        .setMessage("确定取消退款？")
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -190,14 +195,14 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e==null){
+                                        if (e == null) {
                                             loadingOrder();
                                         }
                                     }
                                 });
                             }
                         })
-                        .setNegativeButton("否" , null)
+                        .setNegativeButton("否", null)
                         .show();
                 break;
         }

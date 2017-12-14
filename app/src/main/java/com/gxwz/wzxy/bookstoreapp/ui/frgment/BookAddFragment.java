@@ -1,11 +1,19 @@
 package com.gxwz.wzxy.bookstoreapp.ui.frgment;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +23,21 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.BookTypeInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.TypeInfo;
+import com.gxwz.wzxy.bookstoreapp.utils.GlideRoundTransformUtils;
 import com.gxwz.wzxy.bookstoreapp.utils.Utils;
+import com.soundcloud.android.crop.Crop;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +45,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -82,42 +98,108 @@ public class BookAddFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.book_type_submit:
                 Log.e(TAG, tvDirectory.getText().toString());
-                saveBook();
+                uploadblock();
                 break;
             case R.id.img_cover:
-                /**
-                 * 打开选择图片的界面
-                 */
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");//相片类型
-                startActivityForResult(intent, 0);
-
+                Crop.pickImage(getActivity());
                 break;
         }
 
     }
-Uri uri;
+
+    public void uploadblock() {
+        if (uri == null) {
+            return;
+        }
+
+        String name = tvName.getText().toString().trim();//书名
+        String author = tvAuthor.getText().toString().trim();//作者
+        String press = tvName.getText().toString().trim();//出版社
+        String price = imgPrice.getText().toString().trim();//出版社
+        String reume = tvResume.getText().toString().trim();//作者简介
+        String introduction = tvIntroduction.getText().toString().trim();//作者简介
+        String directory = tvDirectory.getText().toString().trim();//mu
+        if (Utils.isEmpty(name)) {
+            DialogUIUtils.showToastShort("书名不能为空");
+            return;
+        }
+        if (Utils.isEmpty(author)) {
+            DialogUIUtils.showToastShort("作者不能为空");
+            return;
+        }
+        if (Utils.isEmpty(press)) {
+            DialogUIUtils.showToastShort("出版社不能为空");
+            return;
+        }
+        if (Utils.isEmpty(reume)) {
+            DialogUIUtils.showToastShort("作者简介不能为空");
+            return;
+        }
+        if (Utils.isEmpty(introduction)) {
+            DialogUIUtils.showToastShort("图书简介不能为空");
+            return;
+        }
+        if (Utils.isEmpty(directory)) {
+            DialogUIUtils.showToastShort("目录不能为空");
+            return;
+        }
+        if (info == null) {
+            DialogUIUtils.showToastShort("类型未选择");
+            return;
+        }
+
+        DialogUIUtils.showToastCenterLong("请稍后...");
+        final BmobFile bmobFile = new BmobFile(new File(getRealFilePath(getActivity(), uri)));
+        bmobFile.uploadblock(new UploadFileListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    //bmobFile.getFileUrl()--返回的上传文件的完整地址
+                    DialogUIUtils.showToastShort("上传文件成功");
+                    saveBook(bmobFile.getFileUrl());
+
+                } else {
+                    DialogUIUtils.showToastShort("上传文件失败：" + e.getMessage());
+                    DialogUIUtils.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+                // 返回的上传进度（百分比）
+            }
+        });
+    }
+
+
+    Uri uri;
+    String path;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /**
-         * 从相册中选取图片的请求标志
-         */
+        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+            beginCrop(data.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, data);
+        }
+    }
 
+    public void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(getActivity());
+    }
+
+    public void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            try {
-                /**
-                 * 该uri是上一个Activity返回的
-                 */
-                uri = data.getData();
-                Bitmap bit = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri));
-                imgCover.setImageBitmap(bit);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("tag", e.getMessage());
-            }
-        } else {
-            Log.i("liang", "失败");
+            uri = Crop.getOutput(result);
+            Glide.with(context)
+                    .load(Crop.getOutput(result)).error(R.mipmap.ic_launcher)
+                    .into(imgCover);
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(getActivity(), Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -179,9 +261,9 @@ Uri uri;
     }
 
 
-    public void saveBook() {
+    public void saveBook(String url) {
         String bookId = System.currentTimeMillis() + "";//编号
-        String cover = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=243137637,94874995&fm=27&gp=0.jpg";//封面
+        String cover = url;//封面
         String name = tvName.getText().toString().trim();//书名
         String author = tvAuthor.getText().toString().trim();//作者
         String press = tvName.getText().toString().trim();//出版社
@@ -220,5 +302,28 @@ Uri uri;
                 }
             }
         });
+    }
+
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
     }
 }

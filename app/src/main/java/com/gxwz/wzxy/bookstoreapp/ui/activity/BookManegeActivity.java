@@ -1,6 +1,12 @@
 package com.gxwz.wzxy.bookstoreapp.ui.activity;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +19,7 @@ import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.BookAddFragment;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.BookListFragment;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.BookTypeFragment;
+import com.soundcloud.android.crop.Crop;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +34,7 @@ public class BookManegeActivity extends BaseActivity {
     BookAddFragment bookAddFragment;
     BookListFragment bookListFragment;
     String[] tags = new String[]{"type", "add", "list"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,26 @@ public class BookManegeActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         init();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+            beginCrop(data.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, data);
+        }
+    }
+
+    public void beginCrop(Uri data) {
+        if (bookAddFragment != null)
+            bookAddFragment.beginCrop(data);
+    }
+
+    public void handleCrop(int resultCode, Intent data) {
+        if (bookAddFragment != null)
+            bookAddFragment.handleCrop(resultCode, data);
     }
 
     private void init() {
@@ -58,18 +86,17 @@ public class BookManegeActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_book_add:
-                switchContent(mContent,bookAddFragment,0);
+                switchContent(mContent, bookAddFragment, 0);
                 break;
             case R.id.menu_book_addtype:
-                switchContent(mContent,bookTypeFragment,1);
+                switchContent(mContent, bookTypeFragment, 1);
                 break;
             case R.id.menu_book_list:
-                switchContent(mContent,bookListFragment,2);
+                switchContent(mContent, bookListFragment, 2);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     /**

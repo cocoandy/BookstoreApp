@@ -43,19 +43,20 @@
 
     <TextView
         android:id="@+id/item_book_price"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_book_press"
         android:layout_marginTop="3dp"
-        android:layout_toRightOf="@+id/item_book_cover"
-        android:text="价格：￥20.00"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="￥20.00"
+        android:textSize="18dp"
         android:textColor="@color/red" />
 
     <TextView
         android:id="@+id/item_book_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_book_price"
+        android:layout_below="@+id/item_book_press"
         android:layout_marginTop="3dp"
         android:layout_toRightOf="@+id/item_book_cover"
         android:text="10000条评论" />

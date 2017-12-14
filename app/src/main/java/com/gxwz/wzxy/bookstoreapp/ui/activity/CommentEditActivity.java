@@ -61,10 +61,7 @@ public class CommentEditActivity extends BaseActivity {
             return;
         }
         CommentInfo commentInfo = new CommentInfo();
-        BmobUser user =  BmobUser.getCurrentUser();
-        UserInfo userInfo = new UserInfo();
-        userInfo.setObjectId(user.getObjectId());
-        commentInfo.setUser(userInfo);
+        commentInfo.setUser(currentUser());
         commentInfo.setBookInfo(bookInfo);
         commentInfo.setContext(commStr);
         commentInfo.setFating(number);
@@ -72,6 +69,14 @@ public class CommentEditActivity extends BaseActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
+                    BookInfo bookInfo = orderInfo.getBookInfo();
+                    bookInfo.increment("comment"); // 分数递增1
+                    bookInfo.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+
+                        }
+                    });
                     orderInfo.setFlag(4);
                     orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                         @Override

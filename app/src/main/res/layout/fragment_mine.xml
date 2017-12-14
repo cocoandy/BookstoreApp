@@ -43,6 +43,7 @@
                 android:layout_alignBottom="@+id/user_cover"
                 android:layout_alignRight="@+id/user_cover"
                 android:layout_marginRight="5dp"
+                android:visibility="gone"
                 android:src="@mipmap/icon_man"
                  />
 
@@ -77,6 +78,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/shape_text_bg_8"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="退   出"
                 android:textColor="@color/white" />
         </RelativeLayout>
@@ -165,16 +167,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="0.5dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="管理员操作"
-             />
         <TextView
             android:id="@+id/admin_order"
             android:layout_width="match_parent"

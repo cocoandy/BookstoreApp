@@ -138,6 +138,7 @@ public class HomeFragment extends BaseFragment {
 
                 Intent intent = new Intent(context, BookDetailsActivity.class);
                 intent.putExtra("bookId", bookInfos.get(position).getObjectId());
+                intent.putExtra("book", bookInfos.get(position));
                 startActivity(intent);
             }
 

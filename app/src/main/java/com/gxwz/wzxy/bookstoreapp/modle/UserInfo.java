@@ -53,4 +53,15 @@ public class UserInfo extends BmobUser {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "gender=" + gender +
+                ", nickname='" + nickname + '\'' +
+                ", cover='" + cover + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", root=" + root +
+                '}';
+    }
 }

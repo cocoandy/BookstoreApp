@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,11 @@ public class BookCommentFragment extends BaseFragment {
     List<CommentInfo> commentInfos = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     String bookId;
+    BookInfo bookInfo;
+
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
 
     @Nullable
     @Override
@@ -56,15 +62,15 @@ public class BookCommentFragment extends BaseFragment {
         BookInfo info = new BookInfo();
         info.setObjectId(id);
         BmobQuery<CommentInfo> query = new BmobQuery<>();
-        query.addWhereEqualTo("bookInfo", info);
-        query.include("user");
-        query.include("bookInfo");
+        query.include("user,bookInfo");
+        query.addWhereEqualTo("bookInfo", bookInfo);
         query.findObjects(new FindListener<CommentInfo>() {
             @Override
             public void done(List<CommentInfo> list, BmobException e) {
                 if (e == null) {
                     commentInfos.clear();
                     for (CommentInfo info : list) {
+                        Log.e("TAG_OOO","User:---"+info.getUser().toString());
                         commentInfos.add(info);
                     }
                     mAdapter.notifyDataSetChanged();

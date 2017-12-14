@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.CommentAdapter;
@@ -42,8 +43,7 @@ public class CommentActivity extends BaseActivity {
     private void loading() {
         BmobQuery<CommentInfo> query = new BmobQuery<>();
         query.addWhereEqualTo("user", BmobUser.getCurrentUser());
-        query.include("user");
-        query.include("bookInfo");
+        query.include("user,bookInfo");
         query.findObjects(new FindListener<CommentInfo>() {
             @Override
             public void done(List<CommentInfo> list, BmobException e) {
@@ -51,6 +51,7 @@ public class CommentActivity extends BaseActivity {
                     commentInfos.clear();
                     for (CommentInfo info:list){
                         commentInfos.add(info);
+                        Log.e("TAG_OOO","User:---"+info.getUser().toString());
                     }
                     mAdapter.notifyDataSetChanged();
                 }
@@ -73,6 +74,5 @@ public class CommentActivity extends BaseActivity {
         recycle.setHasFixedSize(true);
         //创建并设置Adapter
         recycle.setAdapter(mAdapter);
-        recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
     }
 }

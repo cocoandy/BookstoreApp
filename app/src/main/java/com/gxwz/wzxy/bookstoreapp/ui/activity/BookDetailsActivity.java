@@ -66,6 +66,11 @@ public class BookDetailsActivity extends BaseActivity {
     public ImageView cover;
 
     public String bookId;
+    public BookInfo book;
+
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
 
     BookDetailsFragment bookDetailsFragment;
     BookCommentFragment bookCommentFragment;
@@ -80,6 +85,7 @@ public class BookDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_book_details);
         ButterKnife.bind(this);
         bookId = getIntent().getStringExtra("bookId");
+        book = (BookInfo) getIntent().getSerializableExtra("book");
         init();
         toolbarBreak("商品详情");
     }
@@ -94,6 +100,7 @@ public class BookDetailsActivity extends BaseActivity {
         bookDetailsFragment.setBookId(bookId);
         bookCommentFragment = new BookCommentFragment();
         bookCommentFragment.setBookId(bookId);
+        bookCommentFragment.setBookInfo(book);
         titles.add("详情");
         titles.add("评论");
 
