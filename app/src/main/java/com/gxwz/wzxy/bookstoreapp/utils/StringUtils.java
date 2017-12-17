@@ -10,7 +10,7 @@ public class StringUtils {
      * @param type
      * @return
      */
-    public String getContrlType(int type) {
+    public static String getContrlType(int type) {
         switch (type) {
             case 0:
                 return "未付款";

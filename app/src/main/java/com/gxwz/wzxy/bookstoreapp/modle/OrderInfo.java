@@ -13,9 +13,18 @@ public class  OrderInfo extends BmobObject {
 
     public AddressInfo addressInfo;
     public String userName;
+    public UserInfo userInfo;
     public Integer flag;
     public BookInfo bookInfo;
     public Integer number;
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     public Integer getFlag() {
         return flag;
