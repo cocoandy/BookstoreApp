@@ -41,15 +41,16 @@
             android:layout_height="wrap_content">
 
             <include layout="@layout/item_order_books" />
+
             <TextView
                 android:id="@+id/order_statu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="11"
-                android:padding="5dp"
+                android:layout_centerVertical="true"
                 android:layout_margin="5dp"
-                android:layout_centerVertical="true"/>
+                android:padding="5dp"
+                android:text="11" />
         </RelativeLayout>
 
         <LinearLayout
@@ -57,12 +58,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycle"
             android:padding="8dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="用户名："
                 android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/order_user"
                 android:layout_width="wrap_content"
@@ -113,5 +116,45 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_crl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#d1d2d2"
+            android:gravity="right"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/popu_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shape_text_bg_8"
+                android:gravity="center"
+                android:text="同意退货" />
+
+            <TextView
+                android:id="@+id/popu_disagree"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shape_text_bg_8"
+                android:gravity="center"
+                android:text="同意退货" />
+
+            <TextView
+                android:id="@+id/popu_updata"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shape_text_bg_8"
+                android:gravity="center"
+                android:text="修改订单"
+                android:textSize="13sp" />
+        </LinearLayout>
     </LinearLayout>
+
+
 </FrameLayout>

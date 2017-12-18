@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,10 +29,11 @@ import butterknife.ButterKnife;
  */
 
 public class OrderAdminAdapter extends BaseRecycleAdapter<OrderAdminAdapter.BookViewHolder> {
-    OrderClick onOrderClick;
+    onRecycleClick onRecycleClick;
+    public int flag = -1;
 
-    public void setOnOrderClick(OrderClick onOrderClick) {
-        this.onOrderClick = onOrderClick;
+    public void setOnRecycleClick(OrderAdminAdapter.onRecycleClick onRecycleClick) {
+        this.onRecycleClick = onRecycleClick;
     }
 
     public OrderAdminAdapter(Context context, List mDatas) {
@@ -46,13 +48,8 @@ public class OrderAdminAdapter extends BaseRecycleAdapter<OrderAdminAdapter.Book
     }
 
     @Override
-    public void onBindViewHolders(BookViewHolder holder, final int position) {
+    public void onBindViewHolders(final BookViewHolder holder, final int position) {
         final OrderInfo orderInfo = (OrderInfo) mDatas.get(position);
-        if (position % 2 == 0) {
-            holder.itemView.setBackgroundResource(R.color.whitesmoke);
-        } else {
-            holder.itemView.setBackgroundResource(R.color.white);
-        }
         BookInfo info = orderInfo.getBookInfo();
         holder.name.setText(info.getName());
         holder.price.setText("价格：￥" + info.getPrice());
@@ -61,24 +58,66 @@ public class OrderAdminAdapter extends BaseRecycleAdapter<OrderAdminAdapter.Book
 
         holder.order_id.setText(orderInfo.getObjectId());
         holder.order_time.setText(orderInfo.getCreatedAt());
+        holder.order_user.setText(orderInfo.getUserName());
 
-        holder.contrl_pay.setVisibility(View.GONE);
-        holder.contrl_get.setVisibility(View.GONE);
-        holder.contrl_comm.setVisibility(View.GONE);
-        holder.contrl_back.setVisibility(View.GONE);
-        holder.contrl_cancel.setVisibility(View.GONE);
+        holder.popu_updata.setText("修改订单");
+
         holder.order_statu.setText(StringUtils.getContrlType(orderInfo.getFlag()));
+
+        holder.popu_updata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onRecycleClick != null) onRecycleClick.onClick(v,position);
+            }
+        });
+        holder.popu_agree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onRecycleClick != null) onRecycleClick.onClick(v,position);
+            }
+        });
+        holder.popu_disagree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onRecycleClick != null) onRecycleClick.onClick(v,position);
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag = flag == position ? -1 : position;
+                notifyDataSetChanged();
+            }
+        });
+
+        if (flag == position) {
+            holder.ll_crl.setVisibility(View.VISIBLE);
+        } else {
+            holder.ll_crl.setVisibility(View.GONE);
+        }
 
     }
 
 
     public class BookViewHolder extends BaseRecycleAdapter.ViewHolder {
+        @BindView(R.id.ll_crl)
+        LinearLayout ll_crl;
         @BindView(R.id.item_order_id)
         TextView order_id;
         @BindView(R.id.order_statu)
         TextView order_statu;
         @BindView(R.id.item_order_time)
         TextView order_time;
+        @BindView(R.id.order_user)
+        TextView order_user;
+
+        @BindView(R.id.popu_updata)
+        TextView popu_updata;
+        @BindView(R.id.popu_agree)
+        TextView popu_agree;
+        @BindView(R.id.popu_disagree)
+        TextView popu_disagree;
 
         @BindView(R.id.item_book_name)
         public TextView name;
@@ -91,24 +130,13 @@ public class OrderAdminAdapter extends BaseRecycleAdapter<OrderAdminAdapter.Book
         @BindView(R.id.item_book_cover)
         public ImageView cover;
 
-        @BindView(R.id.contrl_pay)
-        TextView contrl_pay;
-        @BindView(R.id.contrl_get)
-        TextView contrl_get;
-        @BindView(R.id.contrl_back)
-        TextView contrl_back;
-        @BindView(R.id.contrl_comm)
-        TextView contrl_comm;
-        @BindView(R.id.contrl_cancel)
-        TextView contrl_cancel;
-
         public BookViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    public interface OrderClick {
-        public void onClick(int flag, int position);
+    public interface onRecycleClick {
+        public void onClick(View view, int position);
     }
 }

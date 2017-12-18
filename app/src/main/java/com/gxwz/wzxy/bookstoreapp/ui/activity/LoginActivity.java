@@ -58,11 +58,11 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void done(UserInfo userInfo, BmobException e) {
                         if (e == null) {
-                            DialogUIUtils.showToastLong("登录成功:");
+                            DialogUIUtils.showToastLong("登录成功");
                             sendBroadcast(new Intent(Constant.Broadcast.LOGIN_SUCCESS));
                             finish();
                         } else {
-                            DialogUIUtils.showToastLong("登录失败:");
+                            DialogUIUtils.showToastLong("登录失败");
                         }
                     }
                 });

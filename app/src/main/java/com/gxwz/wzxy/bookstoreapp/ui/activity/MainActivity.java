@@ -1,6 +1,9 @@
 package com.gxwz.wzxy.bookstoreapp.ui.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +17,7 @@ import com.gxwz.wzxy.bookstoreapp.ui.frgment.HomeFragment;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.MineFragment;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.OrderFragment;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.ShoppCarFragment;
+import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +48,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        receiver();
         initData();
     }
 
@@ -97,4 +101,28 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        context.unregisterReceiver(receiver);
+    }
+
+    public void receiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.Broadcast.FRASH_CAR_DATA);
+        intentFilter.addAction(Constant.Broadcast.LOGIN_SUCCESS);
+        context.registerReceiver(receiver, intentFilter);
+    }
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constant.Broadcast.LOGIN_SUCCESS)){
+                mTabLayout.getTabAt(0).select();
+            }
+            if (intent.getAction().equals(Constant.Broadcast.FRASH_CAR_DATA)){
+                mTabLayout.getTabAt(2).select();
+            }
+
+        }
+    };
 }

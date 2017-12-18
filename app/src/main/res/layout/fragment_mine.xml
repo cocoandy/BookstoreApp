@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="170dp"
         android:background="@color/colorPrimary"
         app:contentInsetStart="0dp">
 
@@ -22,7 +22,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:visibility="gone"
                 android:src="@mipmap/icon_edit"
                  />
@@ -30,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/user_cover"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:src="@mipmap/icon_user_cover" />
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_name"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/shape_text_bg_8"
                 android:gravity="center"
                 android:text="登录/注册"
@@ -161,7 +161,17 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="我的评论" />
-
+    <TextView
+        android:id="@+id/mine_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="0.5dp"
+        android:background="@color/white"
+        android:drawableRight="@mipmap/ic_direction_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="信息安全" />
     <LinearLayout
         android:id="@+id/ll_mine_root"
         android:layout_width="match_parent"

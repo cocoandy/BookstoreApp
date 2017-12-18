@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gxwz.wzxy.bookstoreapp.ui.activity.ResetPWDActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/pwd_old"
+                style="@style/editText"
+                android:drawableLeft="@mipmap/icon_username"
+                android:hint="手机号码" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/rejest_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_text_bg_8"
+                    android:hint="验证码"
+                    android:paddingLeft="16dp" />
+
+                <Button
+                    android:id="@+id/rejest_send_code"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_btn_bg_8"
+                    android:gravity="center"
+                    android:text="验证码" />
+            </LinearLayout>
+            <EditText
+                android:id="@+id/pwd_set"
+                style="@style/editText"
+                android:drawableLeft="@mipmap/icon_password"
+                android:hint="设置密码" />
+            <EditText
+                android:id="@+id/pwd_sure"
+                style="@style/editText"
+                android:drawableLeft="@mipmap/icon_password"
+                android:hint="确认密码" />
+            <Button
+                android:id="@+id/submit"
+                style="@style/button"
+                android:text="确                       定" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

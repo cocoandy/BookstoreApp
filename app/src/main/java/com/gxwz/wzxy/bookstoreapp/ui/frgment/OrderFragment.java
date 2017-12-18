@@ -73,6 +73,7 @@ public class OrderFragment extends BaseFragment implements OrderAdapter.OrderCli
             return;
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.include("bookInfo");
+        query.order("-createdAt");
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
         query.findObjects(new FindListener<OrderInfo>() {
             @Override

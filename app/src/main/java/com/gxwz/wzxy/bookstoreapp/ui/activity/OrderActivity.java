@@ -48,6 +48,7 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
     private void loadingOrder() {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.include("bookInfo");
+        query.order("-createdAt");
         query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
         if (flag>=0) query.addWhereEqualTo("flag",flag);
         query.findObjects(new FindListener<OrderInfo>() {

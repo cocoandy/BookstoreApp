@@ -46,7 +46,8 @@
         <activity android:name=".ui.activity.CommentActivity" />
         <activity android:name=".ui.activity.BooksActivity" />
         <activity android:name=".ui.activity.AddressActivity" />
-        <activity android:name=".ui.activity.PageActivity"
+        <activity
+            android:name=".ui.activity.PageActivity"
             android:theme="@style/StartAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +55,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.ResetPWDActivity" />
+        <activity android:name=".ui.activity.OrderAdminActivity"></activity>
     </application>
 
 </manifest>
