@@ -69,6 +69,7 @@ public class UserListActivity extends BaseActivity {
                     bookInfos.clear();
                     bookInfos.addAll(list);
                     mAdapter.notifyDataSetChanged();
+
                 }
             }
         });
