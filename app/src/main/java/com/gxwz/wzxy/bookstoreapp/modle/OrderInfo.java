@@ -12,11 +12,38 @@ import cn.bmob.v3.BmobObject;
 public class  OrderInfo extends BmobObject {
 
     public AddressInfo addressInfo;
+    public String name;
+    public String phone;
+    public String address;
     public String userName;
     public UserInfo userInfo;
     public Integer flag;
     public BookInfo bookInfo;
     public Integer number;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public UserInfo getUserInfo() {
         return userInfo;

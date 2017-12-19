@@ -32,6 +32,7 @@ import com.gxwz.wzxy.bookstoreapp.ui.activity.MineEditActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderAdminActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.ResetPWDActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.UserListActivity;
 import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 import com.gxwz.wzxy.bookstoreapp.utils.GlideRoundTransformUtils;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
@@ -197,6 +198,7 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.submit:
                 BmobUser.logOut();   //清除缓存用户对象
+                userInfo = currentUser();
                 initData();
                 return;
             case R.id.user_login:
@@ -215,7 +217,7 @@ public class MineFragment extends BaseFragment {
                 intent.setClass(context, BookManegeActivity.class);
                 break;
             case R.id.admin_user:
-                intent.setClass(context, CommentActivity.class);
+                intent.setClass(context, UserListActivity.class);
                 break;
             case R.id.admin_order:
                 intent.setClass(context, OrderAdminActivity.class);

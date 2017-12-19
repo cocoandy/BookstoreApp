@@ -25,4 +25,12 @@ public class BookTypeInfo extends BmobObject {
     public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
+
+    @Override
+    public String toString() {
+        return "BookTypeInfo{" +
+                "type='" + type + '\'' +
+                ", typeId='" + typeId + '\'' +
+                '}';
+    }
 }

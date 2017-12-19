@@ -128,6 +128,9 @@ public class OrderEditActivity extends BaseActivity {
             orderInfo.setBookInfo(info.getBookInfo());
             orderInfo.setNumber(info.getNumber());
             orderInfo.setUserInfo(currentUser());
+            orderInfo.setName(addressInfo.getName());
+            orderInfo.setPhone(addressInfo.getPhone());
+            orderInfo.setAddress(addressInfo.getAddress());
             orderInfo.setAddressInfo(addressInfo);
             orderInfo.setFlag(0);
             bmobObjects.add(orderInfo);

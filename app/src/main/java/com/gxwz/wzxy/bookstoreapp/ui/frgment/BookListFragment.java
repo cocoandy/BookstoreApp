@@ -1,17 +1,23 @@
 package com.gxwz.wzxy.bookstoreapp.ui.frgment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gxwz.wzxy.bookstoreapp.R;
+import com.gxwz.wzxy.bookstoreapp.adapter.BookAdminAdapter;
+import com.gxwz.wzxy.bookstoreapp.adapter.BookInfoAdapter;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdapter;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderAdminAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
@@ -19,60 +25,138 @@ import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.BookTypeInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.EditBookActivity;
+import com.gxwz.wzxy.bookstoreapp.ui.activity.EditOrderActivity;
 import com.gxwz.wzxy.bookstoreapp.view.FluidLayout;
+import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
+ * fragment_book_list
  * Created by crucy on 2017/10/28.
  */
 
-public class BookListFragment extends BaseFragment {
+public class BookListFragment extends BaseFragment implements BookAdminAdapter.onRecycleClick {
     @BindView(R.id.recycle)
     RecyclerView recycle;
-    OrderAdminAdapter mAdapter;
-    List<OrderInfo> orderInfos = new ArrayList<>();
-    LinearLayoutManager linearLayoutManager;
+    @BindView(R.id.screach_books)
+    EditText screach;
 
     FluidLayout fluidLayout;
     TextView select;
+    BookAdminAdapter mAdapter;
+    List<BookInfo> bookInfos = new ArrayList<>();
+    LinearLayoutManager linearLayoutManager;
 
     List<BookTypeInfo> typeInfos = new ArrayList<>();
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_list, container, false);
         ButterKnife.bind(this, view);
         initRecycle();
-        loadingOrder();
-        initFluid();
+        loadingBooksByName("");
+        getBookTypes();
         return view;
     }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_books);
+//        ButterKnife.bind(this);
+//        initRecycle();
+//        loadingBooksByName("");
+//        getBookTypes();
+//    }
 
-    private void initFluid() {
-
+    private void loadingBooksByName(String name) {
+        BmobQuery<BookInfo> queue = new BmobQuery<>();
+        if (name!=null&&!"".equals(name)){
+            BmobQuery<BookInfo> eq3 = new BmobQuery<BookInfo>();
+            eq3.addWhereEqualTo("name", name);
+            BmobQuery<BookInfo> eq4 = new BmobQuery<BookInfo>();
+            eq4.addWhereEqualTo("author", name);
+            List<BmobQuery<BookInfo>> queries = new ArrayList<BmobQuery<BookInfo>>();
+            queries.add(eq3);
+            queries.add(eq4);
+            BmobQuery<BookInfo> mainQuery = new BmobQuery<BookInfo>();
+            BmobQuery<BookInfo> or = mainQuery.or(queries);
+            //最后组装完整的and条件
+            List<BmobQuery<BookInfo>> andQuerys = new ArrayList<BmobQuery<BookInfo>>();
+            andQuerys.add(or);
+            queue.and(andQuerys);
+        }
+        queue.include("type");
+        queue.findObjects(new FindListener<BookInfo>() {
+            @Override
+            public void done(List<BookInfo> list, BmobException e) {
+                if (list != null) {
+                    bookInfos.clear();
+                    bookInfos.addAll(list);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    @OnClick({R.id.books_scan})
+    public void onClick(View view) {
+        select.setText(screach.getText().toString());
+        loadingBooksByName(screach.getText().toString());
+    }
+
+    private void loadingBooksByType(BookTypeInfo type) {
+        BmobQuery<BookInfo> queue = new BmobQuery<>();
+        queue.addWhereEqualTo("type", type);
+        queue.include("type");
+        queue.findObjects(new FindListener<BookInfo>() {
+            @Override
+            public void done(List<BookInfo> list, BmobException e) {
+                if (list != null) {
+                    bookInfos.clear();
+                    bookInfos.addAll(list);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    public void getBookTypes() {
+        BmobQuery<BookTypeInfo> query = new BmobQuery<>();
+        query.findObjects(new FindListener<BookTypeInfo>() {
+            @Override
+            public void done(List<BookTypeInfo> list, BmobException e) {
+                initData(list);
+            }
+
+
+        });
+    }
+
+    private void initData(List<BookTypeInfo> list) {
+        typeInfos.clear();
+        typeInfos.addAll(list);
+//        adapter.notifyDataSetChanged();
+        genTag(true);
     }
 
     /**
      * 初始化数控数据列表
      */
     private void initRecycle() {
-        mAdapter = new OrderAdminAdapter(context, orderInfos);
-
+        mAdapter = new BookAdminAdapter(context, bookInfos);
+        mAdapter.setOnRecycleClick(this);
         //创建默认的线性LayoutManager
         linearLayoutManager = new LinearLayoutManager(context);
         recycle.setLayoutManager(linearLayoutManager);
@@ -80,6 +164,7 @@ public class BookListFragment extends BaseFragment {
         recycle.setHasFixedSize(true);
         //创建并设置Adapter
         recycle.setAdapter(mAdapter);
+        recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
         View view = LayoutInflater.from(context).inflate(R.layout.heand_recyclerview, recycle, false);
         fluidLayout = (FluidLayout) view.findViewById(R.id.fluid_layout);
         select = (TextView) view.findViewById(R.id.tv_select);
@@ -87,20 +172,6 @@ public class BookListFragment extends BaseFragment {
         mAdapter.addHeaderView(view);
     }
 
-    private void loadingOrder() {
-        BmobQuery<OrderInfo> query = new BmobQuery<>();
-        query.include("bookInfo");
-        query.findObjects(new FindListener<OrderInfo>() {
-            @Override
-            public void done(List<OrderInfo> list, BmobException e) {
-                if(list != null) {
-                    orderInfos.clear();
-                    orderInfos.addAll(list);
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-    }
 
     private int gravity = Gravity.TOP;
     private boolean hasBg = true;
@@ -110,7 +181,6 @@ public class BookListFragment extends BaseFragment {
         fluidLayout.removeAllViews();
         fluidLayout.setGravity(gravity);
         for (int i = 0; i < typeInfos.size(); i++) {
-            final int position = i;
             final BookTypeInfo typeInfo = typeInfos.get(i);
             TextView tv = new TextView(getActivity());
             tv.setText(typeInfo.getType());
@@ -133,8 +203,7 @@ public class BookListFragment extends BaseFragment {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    select.setText("你的选择： " + typeInfo.getType());
-                    selectText(position);
+                    selectText(typeInfo);
                 }
             });
             FluidLayout.LayoutParams params = new FluidLayout.LayoutParams(
@@ -146,25 +215,65 @@ public class BookListFragment extends BaseFragment {
         }
     }
 
-    public void selectText(int info) {
-
+    public void selectText(BookTypeInfo info) {
+        select.setText("你的选择： " + info.getType());
         loadingBooksByType(info);
     }
 
-    private void loadingBooksByType(int flag) {
-        BmobQuery<OrderInfo> queue = new BmobQuery<>();
-        queue.addWhereEqualTo("flag", flag);
-        queue.include("addressInfo,bookInfo,userInfo");
-        queue.findObjects(new FindListener<OrderInfo>() {
-            @Override
-            public void done(List<OrderInfo> list, BmobException e) {
-                if (list != null) {
-                    orderInfos.clear();
-                    orderInfos.addAll(list);
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        });
+    @Override
+    public void onClick(View view, final int position) {
+        switch (view.getId()){
+            case R.id.popu_updata:
+                Intent intent = new Intent(context,EditBookActivity.class);
+                intent.putExtra("bookInfo",bookInfos.get(position));
+                startActivity(intent);
+                break;
+            case R.id.popu_agree:
+                new  AlertDialog.Builder(context)
+                        .setTitle("提示" )
+                        .setMessage("确定上架  《"+bookInfos.get(position).getName()+"》" )
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                BookInfo bookInfo = bookInfos.get(position);
+                                bookInfo.setStatus(0);
+                                bookInfo.update(bookInfo.getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            mAdapter.setFlag(-1);
+                                            loadingBooksByName("");
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("否" , null)
+                        .show();
+                break;
+            case R.id.popu_disagree:
+                new  AlertDialog.Builder(context)
+                        .setTitle("提示" )
+                        .setMessage("确定下架  《"+bookInfos.get(position).getName()+"》" )
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                BookInfo bookInfo = bookInfos.get(position);
+                                bookInfo.setStatus(1);
+                                bookInfo.update(bookInfo.getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            mAdapter.setFlag(-1);
+                                            loadingBooksByName("");
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("否" , null)
+                        .show();
+                break;
+        }
     }
-
 }

@@ -94,7 +94,7 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e!=null){
+                                        if(e==null){
                                             orderInfos.get(position).setFlag(2);
                                             mAdapter.notifyItemChanged(position);
                                         }
@@ -117,7 +117,7 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e!=null){
+                                        if(e==null){
                                             orderInfos.get(position).setFlag(3);
                                             mAdapter.notifyItemChanged(position);
                                         }
@@ -140,7 +140,7 @@ public class OrderActivity extends BaseActivity implements OrderAdapter.OrderCli
                                 orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e!=null){
+                                        if(e==null){
                                             orderInfos.get(position).setFlag(2);
                                             mAdapter.notifyItemChanged(position);
                                         }

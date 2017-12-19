@@ -115,6 +115,7 @@ public class HomeFragment extends BaseFragment {
     private void loadingBooks() {
         BmobQuery<BookInfo> queue = new BmobQuery<>();
         queue.include("type");
+        queue.addWhereEqualTo("status",0);
         queue.findObjects(new FindListener<BookInfo>() {
             @Override
             public void done(List<BookInfo> list, BmobException e) {

@@ -1,7 +1,10 @@
 package com.gxwz.wzxy.bookstoreapp.ui.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -30,6 +33,7 @@ import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class OrderAdminActivity extends BaseActivity implements OrderAdminAdapter.onRecycleClick {
     @BindView(R.id.recycle)
@@ -96,6 +100,7 @@ public class OrderAdminActivity extends BaseActivity implements OrderAdminAdapte
         recycle.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL));
         genTag(true);
         mAdapter.addHeaderView(view);
+        mAdapter.setOnRecycleClick(this);
         mAdapter.setItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseRecycleAdapter.ViewHolder holder, int position) {
@@ -118,6 +123,7 @@ public class OrderAdminActivity extends BaseActivity implements OrderAdminAdapte
     private void loadingOrder() {
         BmobQuery<OrderInfo> query = new BmobQuery<>();
         query.include("bookInfo");
+        query.order("-createdAt");
         query.findObjects(new FindListener<OrderInfo>() {
             @Override
             public void done(List<OrderInfo> list, BmobException e) {
@@ -186,6 +192,7 @@ public class OrderAdminActivity extends BaseActivity implements OrderAdminAdapte
     private void loadingBooksByType(int flag) {
         BmobQuery<OrderInfo> queue = new BmobQuery<>();
         queue.addWhereEqualTo("flag", flag);
+        queue.order("-createdAt");
         queue.include("addressInfo,bookInfo,userInfo");
         queue.findObjects(new FindListener<OrderInfo>() {
             @Override
@@ -215,6 +222,7 @@ public class OrderAdminActivity extends BaseActivity implements OrderAdminAdapte
 
         BmobQuery<OrderInfo> queue = new BmobQuery<>();
         queue.and(andQuerys);
+        queue.order("-createdAt");
         queue.include("addressInfo,bookInfo,userInfo");
         queue.findObjects(new FindListener<OrderInfo>() {
             @Override
@@ -229,11 +237,68 @@ public class OrderAdminActivity extends BaseActivity implements OrderAdminAdapte
     }
 
     @Override
-    public void onClick(View view, int position) {
+    public void onClick(View view, final int position) {
         switch (view.getId()){
-            case R.id.activity_login_username:
+            case R.id.popu_updata:
+                Intent intent = new Intent(this,EditOrderActivity.class);
+                intent.putExtra("orderInfo",orderInfos.get(position));
+                startActivityForResult(intent,0);
+                break;
+            case R.id.popu_agree:
+                new  AlertDialog.Builder(context)
+                        .setTitle("提示" )
+                        .setMessage("确定同意退款？" )
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                OrderInfo orderInfo = orderInfos.get(position);
+                                orderInfo.setFlag(4);
+                                orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            mAdapter.setFlag(-1);
+                                            loadingOrder();
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("否" , null)
+                        .show();
+                break;
+            case R.id.popu_disagree:
+                new  AlertDialog.Builder(context)
+                        .setTitle("提示" )
+                        .setMessage("确定拒绝退款？" )
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                OrderInfo orderInfo = orderInfos.get(position);
+                                orderInfo.setFlag(2);
+                                orderInfo.update(orderInfo.getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            mAdapter.setFlag(-1);
+                                            loadingOrder();
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("否" , null)
+                        .show();
                 break;
         }
-        mAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mAdapter.setFlag(-1);
+        loadingOrder();
+
     }
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_name"
+                android:layout_width="match_parent"
+                android:layout_height="28dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="昵称：" />
+
+                <TextView
+                    android:id="@+id/admin_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="" />
+            </LinearLayout>
+
+            <View
+                style="@style/line"
+                android:layout_width="80dp"
+                android:layout_marginBottom="3dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="用户名：" />
+
+                <TextView
+                    android:id="@+id/admin_user_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="" />
+            </LinearLayout>
+
+            <View
+                style="@style/line"
+                android:layout_width="120dp"
+                android:layout_marginBottom="3dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="创建日期：" />
+
+                <TextView
+                    android:id="@+id/admin_user_brith"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="" />
+            </LinearLayout>
+
+            <View
+                style="@style/line"
+                android:layout_width="160dp"
+                android:layout_marginBottom="3dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/admin_user_cover"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/aliceblue" />
+    </RelativeLayout>
+</LinearLayout>

@@ -55,23 +55,24 @@ public class BooksActivity extends BaseActivity {
         loadingBooksByName("");
         getBookTypes();
     }
-
     private void loadingBooksByName(String name) {
-        BmobQuery<BookInfo> eq3 = new BmobQuery<BookInfo>();
-        eq3.addWhereEqualTo("name", name);
-        BmobQuery<BookInfo> eq4 = new BmobQuery<BookInfo>();
-        eq4.addWhereEqualTo("author", name);
-        List<BmobQuery<BookInfo>> queries = new ArrayList<BmobQuery<BookInfo>>();
-        queries.add(eq3);
-        queries.add(eq4);
-        BmobQuery<BookInfo> mainQuery = new BmobQuery<BookInfo>();
-        BmobQuery<BookInfo> or = mainQuery.or(queries);
-        //最后组装完整的and条件
-        List<BmobQuery<BookInfo>> andQuerys = new ArrayList<BmobQuery<BookInfo>>();
-        andQuerys.add(or);
-
         BmobQuery<BookInfo> queue = new BmobQuery<>();
-        queue.and(andQuerys);
+        if (name!=null&&!"".equals(name)){
+            BmobQuery<BookInfo> eq3 = new BmobQuery<BookInfo>();
+            eq3.addWhereEqualTo("name", name);
+            BmobQuery<BookInfo> eq4 = new BmobQuery<BookInfo>();
+            eq4.addWhereEqualTo("author", name);
+            List<BmobQuery<BookInfo>> queries = new ArrayList<BmobQuery<BookInfo>>();
+            queries.add(eq3);
+            queries.add(eq4);
+            BmobQuery<BookInfo> mainQuery = new BmobQuery<BookInfo>();
+            BmobQuery<BookInfo> or = mainQuery.or(queries);
+            //最后组装完整的and条件
+            List<BmobQuery<BookInfo>> andQuerys = new ArrayList<BmobQuery<BookInfo>>();
+            andQuerys.add(or);
+            queue.and(andQuerys);
+        }
+        queue.addWhereEqualTo("status",0);
         queue.include("type");
         queue.findObjects(new FindListener<BookInfo>() {
             @Override

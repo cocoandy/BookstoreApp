@@ -25,8 +25,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BookManegeActivity extends BaseActivity {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     Fragment mContent;
     FragmentManager fm;
@@ -40,8 +38,8 @@ public class BookManegeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_manege);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         init();
+        toolbarBreak("图书管理");
     }
 
     @Override

@@ -56,7 +56,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ResetPWDActivity" />
-        <activity android:name=".ui.activity.OrderAdminActivity"></activity>
+        <activity android:name=".ui.activity.OrderAdminActivity" />
+        <activity android:name=".ui.activity.EditOrderActivity" />
+        <activity android:name=".ui.activity.EditBookActivity" />
+        <activity android:name=".ui.activity.UserListActivity"></activity>
     </application>
 
 </manifest>
