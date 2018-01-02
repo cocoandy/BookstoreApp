@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
@@ -58,11 +57,11 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void done(UserInfo userInfo, BmobException e) {
                         if (e == null) {
-                            DialogUIUtils.showToastLong("登录成功");
+                            showShort("登录成功");
                             sendBroadcast(new Intent(Constant.Broadcast.LOGIN_SUCCESS));
                             finish();
                         } else {
-                            DialogUIUtils.showToastLong("登录失败");
+                            showShort("登录失败");
                         }
                     }
                 });

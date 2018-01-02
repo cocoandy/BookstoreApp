@@ -2,9 +2,6 @@ package com.gxwz.wzxy.bookstoreapp.ui.frgment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.modle.BookTypeInfo;
@@ -25,7 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -122,7 +117,7 @@ public class BookTypeFragment extends BaseFragment {
         String typeStr = typeEdit.getText().toString().trim();
         if (info == null) {
             if (Utils.isEmpty(typeStr)) {
-                DialogUIUtils.showToastCenterShort("请输入图书类型");
+                showShort("请输入图书类型");
                 return;
             } else {
                 savaBookType(typeStr);
@@ -134,22 +129,22 @@ public class BookTypeFragment extends BaseFragment {
 
     private void updataBookType(String type) {
         if (Utils.isEmpty(type)) {
-            DialogUIUtils.showToastCenterShort("请输入图书类型");
+            showShort("请输入图书类型");
             return;
         }
-        DialogUIUtils.showLoadingHorizontal(context, "加载中...");
+        showProgress();
         info.setType(type);
         info.update(info.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                DialogUIUtils.dismiss();
+                closeProgress();
                 if (e == null) {
                     getBookTypes();
                     typeEdit.setText("");
                     info = null;
-                    DialogUIUtils.showToastCenterShort("修改成功");
+                    showShort("修改成功");
                 } else {
-                    DialogUIUtils.showToastCenterShort(e.getMessage());
+                    showShort(e.getMessage());
                 }
             }
         });
@@ -157,24 +152,24 @@ public class BookTypeFragment extends BaseFragment {
 
     private void savaBookType(String type) {
         if (Utils.isEmpty(type)) {
-            DialogUIUtils.showToastCenterShort("请输入图书类型");
+            showShort("请输入图书类型");
             return;
         }
-        DialogUIUtils.showLoadingHorizontal(context, "加载中...");
+        showProgress();
         BookTypeInfo bookTypeInfo = new BookTypeInfo();
         bookTypeInfo.setType(type);
         bookTypeInfo.setTypeId(String.valueOf(System.currentTimeMillis()));
         bookTypeInfo.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                DialogUIUtils.dismiss();
+                closeProgress();
                 if (e == null) {
                     getBookTypes();
                     typeEdit.setText("");
                     info = null;
-                    DialogUIUtils.showToastCenterShort("添加成功");
+                    showShort("添加成功");
                 } else {
-                    DialogUIUtils.showToastCenterShort(e.getMessage());
+                    showShort(e.getMessage());
                 }
             }
         });

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
@@ -79,12 +78,12 @@ public class MineEditActivity extends BaseActivity {
         newUser.update(bmobUser.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                DialogUIUtils.dismiss();
+                closeProgress();
                 if (e == null) {
-                    DialogUIUtils.showToastShort("更新用户信息成功");
+                    showShort("更新用户信息成功");
                     sendBroadcast(new Intent(Constant.Broadcast.LOGIN_SUCCESS));
                 } else {
-                    DialogUIUtils.showToastShort("更新用户信息失败");
+                    showShort("更新用户信息失败");
                 }
             }
         });
@@ -97,7 +96,7 @@ public class MineEditActivity extends BaseActivity {
             updataUser(url);
             return;
         }
-        DialogUIUtils.showToastCenterLong("请稍后...");
+        showProgress();
         final BmobFile bmobFile = new BmobFile(new File(getRealFilePath(this,uri)));
         bmobFile.uploadblock(new UploadFileListener() {
 
@@ -105,12 +104,12 @@ public class MineEditActivity extends BaseActivity {
             public void done(BmobException e) {
                 if (e == null) {
                     //bmobFile.getFileUrl()--返回的上传文件的完整地址
-                    DialogUIUtils.showToastShort("上传文件成功" );
+                    showShort("上传文件成功" );
                     updataUser(bmobFile.getFileUrl());
 
                 } else {
-                    DialogUIUtils.showToastShort("上传文件失败：" + e.getMessage());
-                    DialogUIUtils.dismiss();
+                    showShort("上传文件失败：" + e.getMessage());
+                    closeProgress();
                 }
 
             }

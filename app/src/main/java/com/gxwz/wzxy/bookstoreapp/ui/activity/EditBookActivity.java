@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
@@ -115,35 +114,35 @@ public class EditBookActivity extends BaseActivity {
         String introduction = tvIntroduction.getText().toString().trim();//作者简介
         String directory = tvDirectory.getText().toString().trim();//mu
         if (Utils.isEmpty(name)) {
-            DialogUIUtils.showToastShort("书名不能为空");
+            showShort("书名不能为空");
             return;
         }
         if (Utils.isEmpty(author)) {
-            DialogUIUtils.showToastShort("作者不能为空");
+            showShort("作者不能为空");
             return;
         }
         if (Utils.isEmpty(press)) {
-            DialogUIUtils.showToastShort("出版社不能为空");
+            showShort("出版社不能为空");
             return;
         }
         if (Utils.isEmpty(reume)) {
-            DialogUIUtils.showToastShort("作者简介不能为空");
+            showShort("作者简介不能为空");
             return;
         }
         if (Utils.isEmpty(introduction)) {
-            DialogUIUtils.showToastShort("图书简介不能为空");
+            showShort("图书简介不能为空");
             return;
         }
         if (Utils.isEmpty(directory)) {
-            DialogUIUtils.showToastShort("目录不能为空");
+            showShort("目录不能为空");
             return;
         }
         if (info == null) {
-            DialogUIUtils.showToastShort("类型未选择");
+            showShort("类型未选择");
             return;
         }
 
-        DialogUIUtils.showToastCenterLong("请稍后...");
+       showProgress();
         final BmobFile bmobFile = new BmobFile(new File(getRealFilePath(this, uri)));
         bmobFile.uploadblock(new UploadFileListener() {
 
@@ -151,12 +150,12 @@ public class EditBookActivity extends BaseActivity {
             public void done(BmobException e) {
                 if (e == null) {
                     //bmobFile.getFileUrl()--返回的上传文件的完整地址
-                    DialogUIUtils.showToastShort("上传文件成功");
+                    showShort("上传文件成功");
                     saveBook(bmobFile.getFileUrl());
 
                 } else {
-                    DialogUIUtils.showToastShort("上传文件失败：" + e.getMessage());
-                    DialogUIUtils.dismiss();
+                    showShort("上传文件失败：" + e.getMessage());
+                   closeProgress();
                 }
 
             }
@@ -283,25 +282,25 @@ public class EditBookActivity extends BaseActivity {
         String introduction = tvIntroduction.getText().toString().trim();//作者简介
         String directory = tvDirectory.getText().toString().trim();//mu
         if (Utils.isEmpty(name)) {
-            DialogUIUtils.showToastShort("书名不能为空");
+            showShort("书名不能为空");
         }
         if (Utils.isEmpty(author)) {
-            DialogUIUtils.showToastShort("作者不能为空");
+            showShort("作者不能为空");
         }
         if (Utils.isEmpty(press)) {
-            DialogUIUtils.showToastShort("出版社不能为空");
+            showShort("出版社不能为空");
         }
         if (Utils.isEmpty(reume)) {
-            DialogUIUtils.showToastShort("作者简介不能为空");
+            showShort("作者简介不能为空");
         }
         if (Utils.isEmpty(introduction)) {
-            DialogUIUtils.showToastShort("图书简介不能为空");
+            showShort("图书简介不能为空");
         }
         if (Utils.isEmpty(directory)) {
-            DialogUIUtils.showToastShort("目录不能为空");
+            showShort("目录不能为空");
         }
         if (info == null) {
-            DialogUIUtils.showToastShort("类型未选择");
+            showShort("类型未选择");
         }
 
         BookInfo bookInfo = new BookInfo(bookId, cover, name, author, press, 0.0, price, info, 0, 0, reume, introduction, directory);
@@ -309,7 +308,7 @@ public class EditBookActivity extends BaseActivity {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    DialogUIUtils.showToastShort("修改成功");
+                    showShort("修改成功");
                 }
             }
         });

@@ -1,33 +1,24 @@
 package com.gxwz.wzxy.bookstoreapp.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
-import com.gxwz.wzxy.bookstoreapp.adapter.CinemaTabAdapter;
 import com.gxwz.wzxy.bookstoreapp.adapter.TextTabAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.BookCommentFragment;
 import com.gxwz.wzxy.bookstoreapp.ui.frgment.BookDetailsFragment;
-import com.gxwz.wzxy.bookstoreapp.ui.frgment.BookInfoFragment;
-import com.gxwz.wzxy.bookstoreapp.ui.frgment.HomeFragment;
-import com.gxwz.wzxy.bookstoreapp.ui.frgment.MineFragment;
-import com.gxwz.wzxy.bookstoreapp.ui.frgment.OrderFragment;
-import com.gxwz.wzxy.bookstoreapp.ui.frgment.ShoppCarFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -181,12 +172,12 @@ public class BookDetailsActivity extends BaseActivity {
                         @Override
                         public void done(String s, BmobException e) {
                             if (e == null) {
-                                DialogUIUtils.showToastShort("已经添加到购物车");
+                                showShort("已经添加到购物车");
                             }
                         }
                     });
                 } else {
-                    DialogUIUtils.showToastShort("该商品已经在购物车中");
+                    showShort("该商品已经在购物车中");
                 }
             }
         });

@@ -14,13 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
-import com.gxwz.wzxy.bookstoreapp.adapter.BookInfoAdapter;
 import com.gxwz.wzxy.bookstoreapp.adapter.ShopCardAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseFragment;
 import com.gxwz.wzxy.bookstoreapp.base.BaseRecycleAdapter;
-import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.BookDetailsActivity;
 import com.gxwz.wzxy.bookstoreapp.ui.activity.OrderEditActivity;
@@ -28,7 +25,6 @@ import com.gxwz.wzxy.bookstoreapp.utils.Constant;
 import com.gxwz.wzxy.bookstoreapp.utils.NumUtil;
 import com.gxwz.wzxy.bookstoreapp.utils.Utils;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
-import com.zhy.adapter.recyclerview.CommonAdapter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -65,7 +61,6 @@ public class ShoppCarFragment extends BaseFragment implements ShopCardAdapter.Up
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shoppcar, container, false);
         ButterKnife.bind(this, view);
-        DialogUIUtils.init(getActivity());
         receiver();
         return view;
     }
@@ -179,7 +174,7 @@ public class ShoppCarFragment extends BaseFragment implements ShopCardAdapter.Up
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    DialogUIUtils.showToastShort("操作成功");
+                    showShort("操作成功");
                 } else {
                     getShopCardinfos();
                 }

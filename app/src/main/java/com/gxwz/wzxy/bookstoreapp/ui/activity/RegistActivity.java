@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
@@ -88,7 +87,7 @@ public boolean checkUser(String number){
                 if (codeTime < 60) return;
                 String number = etNumber.getText().toString().trim();
                 if (Utils.isEmpty(number) && number.length() != 11) {
-                    DialogUIUtils.showToastLong("手机号有误！");
+                    showShort("手机号有误！");
                     return;
                 }
                 handler.sendEmptyMessage(0);
@@ -102,9 +101,9 @@ public boolean checkUser(String number){
             @Override
             public void done(Integer smsId, BmobException ex) {
                 if (ex == null) {//验证码发送成功
-                    DialogUIUtils.showToastLong("验证码发送成功！");
+                    showShort("验证码发送成功！");
                 } else {
-                    DialogUIUtils.showToastLong("验证码发送失败！");
+                   showShort("验证码发送失败！");
                 }
             }
         });
@@ -121,28 +120,28 @@ public boolean checkUser(String number){
         if (etGenderWomen.isChecked()) gender = 1;
 
         if (Utils.isEmpty(nickname)) {
-            DialogUIUtils.showToastLong("昵称不能为空！");
+            showShort("昵称不能为空！");
             return;
         }
         if (Utils.isEmpty(number) && number.length() != 11) {
-            DialogUIUtils.showToastLong("手机号有误！");
+            showShort("手机号有误！");
             return;
         }
         if (Utils.isEmpty(code) && code.length() != 6) {
-            DialogUIUtils.showToastLong("验证码有误！");
+            showShort("验证码有误！");
             return;
         }
         if (Utils.isEmpty(password)) {
-            DialogUIUtils.showToastLong("请输入密码！");
+            showShort("请输入密码！");
             return;
         }
         if (!password.equals(confirm)) {
-            DialogUIUtils.showToastLong("密码不一致！");
+            showShort("密码不一致！");
             return;
         }
 
         if (checkUser(number)){
-            DialogUIUtils.showToastLong("该手机号已经注册！");
+            showShort("该手机号已经注册！");
             return;
         }
         UserInfo userInfo = new UserInfo();
@@ -155,10 +154,10 @@ public boolean checkUser(String number){
             @Override
             public void done(UserInfo userInfo, BmobException e) {
                 if (userInfo!=null){
-                    DialogUIUtils.showToastLong("注册成功！");
+                    showShort("注册成功！");
                     finish();
                 }else {
-                    DialogUIUtils.showToastLong("注册失败！");
+                    showShort("注册失败！");
                 }
             }
         });

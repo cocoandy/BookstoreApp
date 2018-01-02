@@ -1,7 +1,6 @@
 package com.gxwz.wzxy.bookstoreapp.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,22 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPickerView;
-import com.dou361.dialogui.DialogUIUtils;
-import com.google.gson.Gson;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.adapter.OrderBooksAdapter;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.AddressInfo;
-import com.gxwz.wzxy.bookstoreapp.modle.BookInfo;
-import com.gxwz.wzxy.bookstoreapp.modle.JsonInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.OrderInfo;
 import com.gxwz.wzxy.bookstoreapp.modle.ShopCarInfo;
-import com.gxwz.wzxy.bookstoreapp.utils.GetJsonDataUtil;
 import com.gxwz.wzxy.bookstoreapp.utils.Utils;
 import com.gxwz.wzxy.bookstoreapp.view.RecycleViewDivider;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +31,6 @@ import cn.bmob.v3.datatype.BatchResult;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListListener;
-import cn.bmob.v3.listener.SaveListener;
 
 public class OrderEditActivity extends BaseActivity {
     @BindView(R.id.recycle)
@@ -66,7 +56,6 @@ public class OrderEditActivity extends BaseActivity {
         total = getIntent().getStringExtra("total");
         if (list != null) mDatas.addAll(list);
         ButterKnife.bind(this);
-        DialogUIUtils.init(this);
         initRecycle();
         loadingAddr();
         tvMoney.setText(total);

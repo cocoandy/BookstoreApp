@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.google.gson.Gson;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
@@ -65,7 +64,6 @@ public class AddressEditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_edit);
         ButterKnife.bind(this);
-        DialogUIUtils.init(this);
         provice_list.add("省份");
         city_list.add("市级");
         area_list.add("地区");
@@ -159,7 +157,7 @@ public class AddressEditActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.submit:
                 if (jsonInfo == null || cityBean == null || area == null) {
-                    DialogUIUtils.showToastShort("信息不完整");
+                    showShort("信息不完整");
                     return;
                 }
                 final AddressInfo addressInfo = new AddressInfo();

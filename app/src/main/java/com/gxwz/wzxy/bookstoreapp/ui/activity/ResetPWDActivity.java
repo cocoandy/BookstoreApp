@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.gxwz.wzxy.bookstoreapp.R;
 import com.gxwz.wzxy.bookstoreapp.base.BaseActivity;
 import com.gxwz.wzxy.bookstoreapp.modle.UserInfo;
@@ -73,11 +72,11 @@ public class ResetPWDActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.submit:
                 if (code==null||"".equals(code)) {
-                    DialogUIUtils.showToastShort("请输入验证码");
+                   showShort("请输入验证码");
                     return;
                 }
                 if (!set.equals(sure)) {
-                    DialogUIUtils.showToastShort("设置新密码输入不一致");
+                   showShort("设置新密码输入不一致");
                     return;
                 }
                 updataPWD(set,code);
@@ -85,7 +84,7 @@ public class ResetPWDActivity extends BaseActivity {
             case R.id.rejest_send_code:
                 if (codeTime < 60) return;
                 if (number==null||number.length()!=11) {
-                    DialogUIUtils.showToastShort("号码不正确");
+                   showShort("号码不正确");
                     return;
                 }
                 handler.sendEmptyMessage(0);
@@ -105,12 +104,12 @@ public class ResetPWDActivity extends BaseActivity {
             @Override
             public void done(BmobException ex) {
                 if (ex == null) {
-                    DialogUIUtils.showToastShort("密码修改成功，可以用新密码进行登录啦");
+                   showShort("密码修改成功，可以用新密码进行登录啦");
                     startActivity(new Intent(ResetPWDActivity.this, LoginActivity.class));
                     finish();
                 } else {
                     Log.e("TAG_BMOB_UPDATA",ex.getMessage());
-                    DialogUIUtils.showToastShort("密码修改失败");
+                   showShort("密码修改失败");
                 }
             }
         });
@@ -121,12 +120,12 @@ public class ResetPWDActivity extends BaseActivity {
 //            @Override
 //            public void done(BmobException e) {
 //                if(e==null){
-//                    DialogUIUtils.showToastShort("密码修改成功，可以用新密码进行登录啦");
+//                   showShort("密码修改成功，可以用新密码进行登录啦");
 //                    startActivity(new Intent(ResetPWDActivity.this, LoginActivity.class));
 //                    finish();
 //                }else{
 //                    Log.e("TAG_BMOB_UPDATA",e.getMessage());
-//                    DialogUIUtils.showToastShort("密码修改失败");
+//                   showShort("密码修改失败");
 //                }
 //            }
 //
